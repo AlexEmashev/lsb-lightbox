@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lightspeed lightbox</title>
+  <link rel="stylesheet" href="../src/style.css">
+  <link rel="stylesheet" href="../src/lsb-style.css">
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script>
+    $(window).load(function(){
+      $lsb = $('.lightspeed-box');
+      
+      $lsb.click(function(event) {
+        $lsb.removeClass('lsb-active');
+      });
+      
+      $('.lightspeed-preview').click(function(event){
+        console.log(event);
+        event.preventDefault();        
+        $lsb.addClass('lsb-active');
+        
+        
+        //Load image.
+        var $img = $('<img />').attr('src', 'img/day_20.png').on('load', function() {
+          console.log('Here is an image:', $img[0].naturalWidth, $img[0].naturalHeight);
+          if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+              // Image is broken.
+              //$template.append('<span>No Image</span>');
+            } else {
+              $lsbImage = $lsb.find('.lsb-image');
+              $lsbImage.removeClass('lsb-noimage');
+              $lsbImage.attr('src', $img.attr('src'));
+              $lsbImage.addClass('lsb-image-loaded');
+              // Change size of an image
+              var imagePadding = 50;
+              var docCalcWidth = window.innerWidth - imagePadding * 2; 
+              // Check if window less then 30;
+              var docCalcHeight = window.innerHeight - imagePadding * 2;
+              var imgWidth = $img[0].naturalWidth;
+              var imgHeight = $img[0].naturalHeight;
+              
+              if (imgWidth > docCalcWidth) {
+                var widthDelta = imgWidth - docCalcWidth;
+                imgWidth -= widthDelta;
+                imgHeight -= widthDelta;
+              }
+              
+              if (imgHeight > docCalcHeight) {
+                var heightDelta = imgHeight - docCalcHeight;
+                imgHeight -= heightDelta;
+                imgWidth -= heightDelta;
+              }
+//              console.log('screenSizes', docCalcHeight, docCalcWidth);
+//              console.log('Image sizes',imgHeight, imgWidth);
+//              $lsbImage.css('max-width', imgWidth);
+//              $lsbImage.css('max-height', imgHeight);
+//              $lsbImage.css('padding', '20px');
+                //$template.find('.fading-spinner').replaceWith($img);
+            }
+        });
+        // Get size.
+        // Change size.
+        // Show image.
+      });
+      
+//        console.log('Click', event);
+//        var $template = $('<div class="lightspeed-box">\
+//            <div class="lsb-content">\
+//              <img class="lsb-image no-image/>\
+//              <div class="fading-spinner">\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//                <div class="spin-circle"></div>\
+//              </div>\
+//            </div>\
+//          </div>');
+//        
+//        // Get image. If it is already in cache don't need to get it again
+//        var $img = $('<img />').attr('src', 'img/day_20.png')
+////        var $img = $template.find('img').attr('src', 'img/day_20.png')
+//          .on('load', function() {
+//            if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+//              // Image is broken.
+//              $template.append('<span>No Image</span>');
+//            } else {
+//                console.log(this);
+//                $template.find('.lsb-image').attr('src', $img.attr('src'));
+//                //$template.find('.fading-spinner').replaceWith($img);
+//            }
+//          });
+//        
+////        $.get('img/01day_1.png', function (data, status){
+////          
+////        });
+//        
+//        // Add a new DOM element with lightbox
+//        $('body').append($template);
+      
+      
+    });
+    </script>
+</head>
+<body>
+<div class="lightspeed-box">
+  <div class="lsb-content">
+    <img class="lsb-image lsb-noimage">
+    <div class="fading-spinner wait-icon">
+      <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="lightspeed-box">
+ <div class="lightspeed-image">
+  <div class="fading-spinner">
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+        <div class="spin-circle"></div>
+      </div>
+</div>
+  </div>
+-->
+<header>
+  <h1>Image gallery</h1>
+</header>
+<article>
+  <section id="gallery">
+    <figure class="item">
+      
+      <header class="header">Hello world</header>
+      <a class="lightspeed-preview" href="img/day_1.png"><img src="img/01day_1.png" alt="Day 1"></a>
+      <div class="description">
+        This is a sample image
+      </div>
+    </figure>
+    
+    <figure class="item">
+      <header class="header">Hello world</header>
+      <a class="lightspeed-preview" href="img/day_10.png"><img src="img/02day_10.png" alt="Day 2"></a>
+      <div class="description">
+        This is a sample image
+      </div>
+    </figure>
+    
+    <figure class="item">
+      <header class="header">Standing girl</header>
+      <a class="lightspeed-preview" href="img/day_11.png"><img src="img/03day_11.png" alt="Day 3"></a>
+      <div class="description">
+        Standing Girl
+      </div>
+    </figure>
+    
+    <figure class="item">
+      <header class="header">Hello world</header>
+      <a class="lightspeed-preview" href="img/day_1.png"><img src="img/04day_12.png" alt="Day 4"></a>
+      <div class="description">
+        This is a sample image
+      </div>
+    </figure>
+  </section>
+</article>
+</body>
+</html>
