@@ -5,29 +5,100 @@
   <title>Lightspeed lightbox</title>
   <link rel="stylesheet" href="../src/style.css">
   <link rel="stylesheet" href="../src/lsb-style.css">
-  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="../src/jquery-2.2.3.min.js"></script>
     <script>
     $(window).load(function(){
-      $lsb = $('.lightspeed-box');
+      var $lsb = $('.lightspeed-box');
+      var $spinner = $('.fading-spinner');
+      var $lsbImage = $lsb.find('.lsb-image');
+      var $next = $lsb.find('.lsb-next');
+      var $prev = $lsb.find('.lsb-prev');
+      
+      var imageCollection = {
+        current: null, 
+        collection: [],
+        getImagesInSet: function(currentHref, groupAttr) {
+          var images = $('.lightspeed-preview');
+          
+          console.log(this.current);
+          var hrefCollection = [];
+          var currentImage = null;
+    
+          images.each(function(i, element) {
+            var elementHref = element.getAttribute('href');
+            hrefCollection.push(elementHref);
+            if(elementHref === currentHref) {
+              currentImage = i;
+            }
+          });
+          
+          this.collection = hrefCollection;
+          this.current = currentImage;
+        },
+        nextImage: function() {
+          if(this.collection.length <= 1) {
+            return '';
+          }
+          
+          this.current += 1;
+          if (this.current > this.collection.length - 1) {
+            this.current = 0;
+          }
+          
+          return this.collection[this.current];
+        },
+        previousImage: function() {
+          if(this.collection.length <= 1) {
+            return '';
+          }
+          
+          this.current -= 1;
+          if (this.current < 0) {
+            this.current = this.collection.length - 1;
+          }
+          
+          return this.collection[this.current];
+        },
+        canSwitch: function() {
+          return this.collection > 0;
+        }
+      };
+      
+      $next.click(function(event) {
+        event.preventDefault();
+        var img = imageCollection.nextImage();
+        switchImage(img);
+      });
       
       $lsb.click(function(event) {
         $lsb.removeClass('lsb-active');
+        $lsbImage.removeClass('lsb-image-loaded');
+        $lsbImage.addClass('lsb-noimage');
       });
       
       $('.lightspeed-preview').click(function(event){
-        console.log(event);
         event.preventDefault();        
+        var fullSizeHref = event.target.parentElement.getAttribute('href');
+        switchImage(fullSizeHref);
+        });
+      
+      function switchImage(href) {
+        // Show lightbox and spinner.
         $lsb.addClass('lsb-active');
-        
+        $spinner.css('opacity', 1);
         
         //Load image.
-        var $img = $('<img />').attr('src', 'img/day_20.png').on('load', function() {
+        var $img = $('<img />').attr('src', href).on('load', function() {
+          // Get all images to set.
+          imageCollection.getImagesInSet(href);
+          
           console.log('Here is an image:', $img[0].naturalWidth, $img[0].naturalHeight);
           if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
               // Image is broken.
               //$template.append('<span>No Image</span>');
             } else {
-              $lsbImage = $lsb.find('.lsb-image');
+              $spinner.css('opacity', 0);
+              //$lsbImage = $lsb.find('.lsb-image');
               $lsbImage.removeClass('lsb-noimage');
               $lsbImage.attr('src', $img.attr('src'));
               $lsbImage.addClass('lsb-image-loaded');
@@ -50,62 +121,9 @@
                 imgHeight -= heightDelta;
                 imgWidth -= heightDelta;
               }
-//              console.log('screenSizes', docCalcHeight, docCalcWidth);
-//              console.log('Image sizes',imgHeight, imgWidth);
-//              $lsbImage.css('max-width', imgWidth);
-//              $lsbImage.css('max-height', imgHeight);
-//              $lsbImage.css('padding', '20px');
-                //$template.find('.fading-spinner').replaceWith($img);
             }
-        });
-        // Get size.
-        // Change size.
-        // Show image.
       });
-      
-//        console.log('Click', event);
-//        var $template = $('<div class="lightspeed-box">\
-//            <div class="lsb-content">\
-//              <img class="lsb-image no-image/>\
-//              <div class="fading-spinner">\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//                <div class="spin-circle"></div>\
-//              </div>\
-//            </div>\
-//          </div>');
-//        
-//        // Get image. If it is already in cache don't need to get it again
-//        var $img = $('<img />').attr('src', 'img/day_20.png')
-////        var $img = $template.find('img').attr('src', 'img/day_20.png')
-//          .on('load', function() {
-//            if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-//              // Image is broken.
-//              $template.append('<span>No Image</span>');
-//            } else {
-//                console.log(this);
-//                $template.find('.lsb-image').attr('src', $img.attr('src'));
-//                //$template.find('.fading-spinner').replaceWith($img);
-//            }
-//          });
-//        
-////        $.get('img/01day_1.png', function (data, status){
-////          
-////        });
-//        
-//        // Add a new DOM element with lightbox
-//        $('body').append($template);
-      
-      
+      }
     });
     </script>
 </head>
@@ -126,6 +144,10 @@
         <div class="spin-circle"></div>
         <div class="spin-circle"></div>
         <div class="spin-circle"></div>
+    </div>
+    <div class="lsb-controls">
+      <span class="lsb-prev">&lt;&nbsp;</span>
+      <span class="lsb-next">&nbsp;&gt;</span>
     </div>
   </div>
 </div>

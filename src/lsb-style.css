@@ -1,4 +1,4 @@
-/* line 2, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+/* line 2, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
 .lightspeed-box {
   visibility: hidden;
   opacity: 0;
@@ -12,7 +12,7 @@
   z-index: 999;
   transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);
   box-sizing: border-box; }
-  /* line 16, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+  /* line 16, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
   .lightspeed-box.lsb-active {
     visibility: visible;
     opacity: 1;
@@ -21,14 +21,15 @@
     right: 0;
     bottom: 0;
     position: fixed; }
-  /* line 26, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+  /* line 26, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
   .lightspeed-box .lsb-content {
     display: block;
     text-align: center;
     margin: auto;
     padding: 50px;
-    transition: all 0.5s; }
-  /* line 34, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    transition: all 0.5s;
+    height: 100%; }
+  /* line 35, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
   .lightspeed-box img.lsb-image {
     position: absolute;
     padding: 30px;
@@ -43,36 +44,78 @@
     margin: auto;
     box-shadow: 0 0 15px black;
     transition: all 1.5s; }
-    /* line 51, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 52, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .lightspeed-box img.lsb-image.lsb-image-loaded {
       max-height: 100%;
       max-width: 100%; }
+  /* line 58, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+  .lightspeed-box:hover .lsb-controls {
+    bottom: 20px; }
+  /* line 62, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+  .lightspeed-box .lsb-controls {
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    z-index: 999; }
+    /* line 70, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+    .lightspeed-box .lsb-controls .lsb-next, .lightspeed-box .lsb-controls .lsb-prev {
+      display: inline-block;
+      width: 100px;
+      height: 35px;
+      line-height: 35px;
+      border-radius: 3px;
+      font-size: 24px;
+      font-family: sans-serif;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out; }
+      /* line 83, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+      .lightspeed-box .lsb-controls .lsb-next:hover, .lightspeed-box .lsb-controls .lsb-prev:hover {
+        background-color: rgba(255, 255, 255, 0.32); }
+      /* line 87, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+      .lightspeed-box .lsb-controls .lsb-next:active, .lightspeed-box .lsb-controls .lsb-prev:active {
+        background-color: rgba(255, 255, 255, 0.72); }
+      /* line 91, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+      .lightspeed-box .lsb-controls .lsb-next:first-child, .lightspeed-box .lsb-controls .lsb-prev:first-child {
+        margin-left: 5px; }
+      /* line 94, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+      .lightspeed-box .lsb-controls .lsb-next:last-child, .lightspeed-box .lsb-controls .lsb-prev:last-child {
+        margin-right: 5px; }
+    /* line 98, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+    .lightspeed-box .lsb-controls .lsb-prev {
+      margin-right: 5px; }
+    /* line 101, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
+    .lightspeed-box .lsb-controls .lsb-next {
+      margin-left: 5px; }
 
-/* line 60, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+/* line 108, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
 .fading-spinner.wait-icon {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0; }
-  /* line 67, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+  /* line 115, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
   .fading-spinner.wait-icon .spin-circle::before {
     background-color: #DA8BE0; }
 
-/* line 72, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+/* line 120, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
 .fading-spinner {
   margin: auto;
   width: 70px;
   height: 70px;
   position: relative; }
-  /* line 78, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+  /* line 126, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
   .fading-spinner .spin-circle {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0; }
-    /* line 84, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 132, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle::before {
       content: '';
       display: block;
@@ -82,76 +125,76 @@
       background-color: #ffffff;
       border-radius: 50%;
       animation: circleFadeDelay 1.2s infinite ease-in-out both; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(1) {
       transform: rotate(30deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(1)::before {
         animation-delay: -1.3s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(2) {
       transform: rotate(60deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(2)::before {
         animation-delay: -1.4s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(3) {
       transform: rotate(90deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(3)::before {
         animation-delay: -1.5s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(4) {
       transform: rotate(120deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(4)::before {
         animation-delay: -1.6s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(5) {
       transform: rotate(150deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(5)::before {
         animation-delay: -1.7s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(6) {
       transform: rotate(180deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(6)::before {
         animation-delay: -1.8s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(7) {
       transform: rotate(210deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(7)::before {
         animation-delay: -1.9s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(8) {
       transform: rotate(240deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(8)::before {
         animation-delay: -2s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(9) {
       transform: rotate(270deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(9)::before {
         animation-delay: -2.1s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(10) {
       transform: rotate(300deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(10)::before {
         animation-delay: -2.2s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(11) {
       transform: rotate(330deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(11)::before {
         animation-delay: -2.3s; }
-    /* line 94, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+    /* line 142, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
     .fading-spinner .spin-circle:nth-child(12) {
       transform: rotate(360deg); }
-      /* line 97, D:/yadisk/YandexDisk/web-dev/my-lightbox/src/lsb-style.scss */
+      /* line 145, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb-style.scss */
       .fading-spinner .spin-circle:nth-child(12)::before {
         animation-delay: -2.4s; }
 

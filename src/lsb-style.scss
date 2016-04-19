@@ -29,6 +29,7 @@
     margin: auto;
     padding: 50px;
     transition: all .5s;
+    height: 100%;
   }
   
   img.lsb-image {
@@ -54,7 +55,54 @@
     }
   }
   
+  &:hover .lsb-controls {
+    bottom: 20px;
+  }
   
+  .lsb-controls {
+    transition: all .5s ease-in-out;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    
+    .lsb-next, .lsb-prev {
+      display: inline-block;
+      width: 100px;
+      height: 35px;
+      line-height: 35px;
+      border-radius: 3px;
+      font-size: 24px;
+      font-family: sans-serif;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.32);
+      }
+      
+      &:active {
+        background-color: rgba(255, 255, 255, 0.72);
+      }
+      
+      &:first-child {
+        margin-left: 5px;
+      }
+      &:last-child {
+        margin-right: 5px;
+      }
+    }
+    .lsb-prev {
+      margin-right: 5px;
+    }
+    .lsb-next {
+      margin-left: 5px;
+    }
+    
+  }
 }
 
 .fading-spinner.wait-icon {
