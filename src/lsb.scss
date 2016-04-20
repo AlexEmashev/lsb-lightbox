@@ -66,26 +66,34 @@
     left: 0;
     right: 0;
     z-index: 999;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     
     .lsb-next, .lsb-prev {
       display: inline-block;
       width: 100px;
-      height: 35px;
-      line-height: 35px;
+      height: 40px;
+      line-height: 40px;
       border-radius: 3px;
       font-size: 24px;
       font-family: sans-serif;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.12);
+      background-color: rgba(0, 0, 0, 0.76);
+      color: #b7b7b7;
       cursor: pointer;
       transition: all .3s ease-in-out;
+      box-shadow: 0 0 1px grey;
       
       &:hover {
-        background-color: rgba(255, 255, 255, 0.32);
+        background-color: rgb(52, 52, 52);
       }
       
       &:active {
-        background-color: rgba(255, 255, 255, 0.72);
+        background-color: rgb(131, 131, 131);
       }
       
       &:first-child {
