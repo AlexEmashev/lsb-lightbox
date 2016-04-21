@@ -27,14 +27,14 @@
     display: block;
     text-align: center;
     margin: auto;
-    padding: 50px;
+    padding: 20px;
     transition: all .5s;
     height: 100%;
   }
   
   img.lsb-image {
-    position: absolute;
-    padding: 30px;
+    //position: absolute;
+    //padding: 30px;
     top: 0;
     left: 0;
     bottom: 0;
@@ -46,6 +46,13 @@
     margin: auto;
     box-shadow: 0 0 15px black;
     transition: all .5s;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
     &::before,
     &::after {}
     
@@ -55,14 +62,10 @@
     }
   }
   
-  &:hover .lsb-controls {
-    bottom: 20px;
-  }
-  
   .lsb-controls {
     transition: all .5s ease-in-out;
     position: absolute;
-    bottom: -100%;
+    bottom: 20px;
     left: 0;
     right: 0;
     z-index: 999;
@@ -84,7 +87,7 @@
       box-shadow: 0 0 1px grey;
       
       &:hover {
-        background-color: rgb(52, 52, 52);
+        background-color: rgba(67, 67, 67, 0.76);
         &::before, &::after {
           background-color: #dbdbdb;
         }

@@ -19,6 +19,8 @@
     var $next;
     // Previous image button.
     var $prev;
+    // Image download button.
+    var $download;
 
     /**
      * Collection of images to show in lightbox.
@@ -96,7 +98,7 @@
     /**
      * Initializes the lightbox.
      */
-    function init() {
+    (function init() {
       var spinCircle = '';
 
       var i;
@@ -112,9 +114,9 @@
         spinCircle +
         '</div>' +
         '<div class="lsb-controls">' +
-        '<span class="lsb-control lsb-prev" title="Previous image">&nbsp;</span>' +
-        '<a class="lsb-control lsb-download" href="#" target="_blank" download title="Download image">&nbsp;</a>'+
-        '<span class="lsb-control lsb-next" title="Next image">&nbsp;</span>' +
+        '<span class="lsb-control lsb-prev" title="Previous image"></span>' +
+        '<a class="lsb-control lsb-download" href="#" target="_blank" download title="Download image"></a>'+
+        '<span class="lsb-control lsb-next" title="Next image"></span>' +
         '</div>' +
         '</div>' +
         '</div>'
@@ -128,6 +130,7 @@
       $next = $lsb.find('.lsb-next');
       // Previous image button.
       $prev = $lsb.find('.lsb-prev');
+      $download = $lsb.find('.lsb-download');
 
       ///// Add event handlers for elements.
       
@@ -162,8 +165,7 @@
         $lsbImage.removeClass('lsb-image-loaded');
         $lsbImage.addClass('lsb-noimage');
       });
-    }
-
+    })();
     /**
      * Shows lightbox.
      */
@@ -186,34 +188,16 @@
         imageCollection.getImagesInSet(href);
 
         if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-          // Undone: show something, when image is broken.
+          // ToDo: show something, when image is broken.
           // Image is broken.
           //$template.append('<span>No Image</span>');
         } else {
           $spinner.css('opacity', 0);
-          //$lsbImage = $lsb.find('.lsb-image');
           $lsbImage.removeClass('lsb-noimage');
           $lsbImage.attr('src', $img.attr('src'));
           $lsbImage.addClass('lsb-image-loaded');
-          // Change size of an image
-          var imagePadding = 50;
-          var docCalcWidth = window.innerWidth - imagePadding * 2;
-          // Check if window less then 30;
-          var docCalcHeight = window.innerHeight - imagePadding * 2;
-          var imgWidth = $img[0].naturalWidth;
-          var imgHeight = $img[0].naturalHeight;
-
-          if (imgWidth > docCalcWidth) {
-            var widthDelta = imgWidth - docCalcWidth;
-            imgWidth -= widthDelta;
-            imgHeight -= widthDelta;
-          }
-
-          if (imgHeight > docCalcHeight) {
-            var heightDelta = imgHeight - docCalcHeight;
-            imgHeight -= heightDelta;
-            imgWidth -= heightDelta;
-          }
+          // Set download button reference
+          $download.attr('href', href);
         }
       });
     }
@@ -229,7 +213,5 @@
       showLightbox();
       switchImage(fullSizeHref);
     });
-
-    init();
   };
 }(jQuery));
