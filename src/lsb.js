@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * jQuery plugin "Lightspeed box".
  * Lightbox plugin with transitions and wait cursor.
@@ -97,6 +99,7 @@
     function init() {
       var spinCircle = '';
 
+      var i;
       for (i = 0; i < 11; i++) {
         spinCircle += '<div class="spin-circle"></div>';
       }
@@ -109,8 +112,9 @@
         spinCircle +
         '</div>' +
         '<div class="lsb-controls">' +
-        '<span class="lsb-prev">&lt;&nbsp;</span>' +
-        '<span class="lsb-next">&nbsp;&gt;</span>' +
+        '<span class="lsb-control lsb-prev" title="Previous image">&nbsp;</span>' +
+        '<a class="lsb-control lsb-download" href="#" target="_blank" download title="Download image">&nbsp;</a>'+
+        '<span class="lsb-control lsb-next" title="Next image">&nbsp;</span>' +
         '</div>' +
         '</div>' +
         '</div>'
@@ -153,6 +157,7 @@
         if ($(event.target.parentElement).hasClass('lsb-controls')) {
           return;
         }
+        
         $lsb.removeClass('lsb-active');
         $lsbImage.removeClass('lsb-image-loaded');
         $lsbImage.addClass('lsb-noimage');
@@ -181,6 +186,7 @@
         imageCollection.getImagesInSet(href);
 
         if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+          // Undone: show something, when image is broken.
           // Image is broken.
           //$template.append('<span>No Image</span>');
         } else {
