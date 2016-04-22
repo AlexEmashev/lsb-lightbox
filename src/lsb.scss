@@ -12,10 +12,7 @@
   position: fixed;
   background-color: rgba(0, 0, 0, 0.84);
   z-index: 999;
-  transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1); 
-//  transition-property: opacity, top, left, bottom;
-//  transition-duration: 600ms;
-//  transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1); 
+  transition: all 600ms cubic-bezier(0.86, 0, 0.07, 1);  
   box-sizing: border-box;
   
   &.lsb-active {

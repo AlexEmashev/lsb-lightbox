@@ -8,7 +8,12 @@
  * License: The MIT public license.
  */
 (function ($) {
-  $.fn.lightspeedBox = function () {
+  $.fn.lightspeedBox = function(options) {
+    var defaultSettings = {
+      showDownloadButton: true
+    };
+    var settings = $.extend(defaultSettings, options);
+    
     // Lightbox element..
     var $lsb;
     // Wait cursor.
@@ -22,7 +27,7 @@
     // Image download button.
     var $download;
     // Used for transition effect between slides.
-    var transitionTimeout = 700;
+    var transitionTimeout = 600;
 
     /**
      * Collection of images to show in lightbox.
@@ -133,6 +138,10 @@
       // Previous image button.
       $prev = $lsb.find('.lsb-prev');
       $download = $lsb.find('.lsb-download');
+      
+      if (!settings.showDownloadButton) {
+        $download.css('display', 'none');
+      }
 
       ///// Add event handlers for elements.
       
