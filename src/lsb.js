@@ -47,7 +47,13 @@
        * @groupAttr - attribute to split images in groups.
        */
       getImagesInSet: function (currentHref, groupAttr) {
-        var images = $('.lightspeed-preview');
+        var images;
+        if(groupAttr) {
+          images = $('.lightspeed-preview[data-lsb-group="' + groupAttr + '"]')
+        } else {
+          images = $('.lightspeed-preview:not([data-lsb-group])');
+        }
+        
         var hrefCollection = [];
         var currentImage = null;
 
@@ -66,7 +72,7 @@
        * Returns next image reference.
        */
       nextImage: function () {
-        if (this.collection.length <= 1) {
+        if (this.collection.length === 0) {
           return '';
         }
 
@@ -81,7 +87,7 @@
        * Returns previous image reference.
        */
       previousImage: function () {
-        if (this.collection.length <= 1) {
+        if (this.collection.length === 0) {
           return '';
         }
 
@@ -227,9 +233,6 @@
       
       //Load image.
       var $img = $('<img />').attr('src', href).on('load', function () {
-        // Get all images to set.
-        imageCollection.getImagesInSet(href);
-
         if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
           // ToDo: show something, when image is broken.
           // Image is broken.
@@ -253,6 +256,10 @@
     $('.lightspeed-preview').click(function (event) {
       event.preventDefault();
       var fullSizeHref = event.target.parentElement.getAttribute('href');
+      var group = $(this).attr('data-lsb-group');
+      // Get all images to set.
+      imageCollection.getImagesInSet(fullSizeHref, group);
+      
       showLightbox();
       switchImage(fullSizeHref);
     });
