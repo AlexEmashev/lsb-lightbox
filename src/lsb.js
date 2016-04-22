@@ -206,40 +206,32 @@
       $lsbImage.addClass('lsb-noimage');
     }
     
-    var imageLoaded = false;
-    var transitionTimerElapsed = false;
-    
     /**
     * Shows image when animation has finished.
     */
     function displayImage() {
-      if (transitionTimerElapsed) {
-        transitionTimerElapsed = false
-        $spinner.css('opacity', 0);
-        $lsbImage.removeClass('lsb-noimage');
-        $lsbImage.addClass('lsb-image-loaded');
-      }
+      $spinner.css('opacity', 0);
+      $lsbImage.removeClass('lsb-noimage');
+      $lsbImage.addClass('lsb-image-loaded');
     }
-
+    
     /**
      * Switches image to specific.
      * @param href image reference.
      */
     function switchImage(href) {
-      imageLoaded = false;
       $lsbImage.addClass('lsb-noimage');
       $lsbImage.removeClass('lsb-image-loaded');
-      $spinner.css('opacity', 1);
-      // Set timeout to show the transition effect.
-      // Normally it'll be visible without timer, since image takes time to load.
-      // But if image is already in cache, there won't be any animation.
-      window.setTimeout(function(){
-        transitionTimerElapsed = true;
-        if(imageLoaded) {
-          displayImage();
-        }
-      }, transitionTimeout);
       
+      // Use timeout to let the image transition effect play.
+      window.setTimeout(function(){
+        loadImage(href);
+      }, transitionTimeout);
+    }
+    
+    
+    function loadImage(href) {
+      $spinner.css('opacity', 1);
       //Load image.
       var $img = $('<img />').attr('src', href).on('load', function () {
         if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
@@ -252,8 +244,6 @@
           $download.attr('href', href);
           displayImage();
         }
-        
-        imageLoaded = true;
       });
     }
 
