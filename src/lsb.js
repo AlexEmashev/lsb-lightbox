@@ -131,7 +131,9 @@
       $('body').append(
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
+        '<div class="lsb-image-container">' +
         '<img class="lsb-image lsb-noimage">' +
+        '</div>' +
         '<div class="fading-spinner wait-icon">' +
         spinCircle +
         '</div>' +
