@@ -161,16 +161,27 @@
           return;
         }
         
-        $lsb.removeClass('lsb-active');
-        $lsbImage.removeClass('lsb-image-loaded');
-        $lsbImage.addClass('lsb-noimage');
+        closeLightbox();
       });
     })();
+    
     /**
      * Shows lightbox.
      */
     function showLightbox() {
       $lsb.addClass('lsb-active');
+    }
+    /**
+    * Hides lightbox.
+    */
+    function closeLightbox() {
+      $lsb.removeClass('lsb-active');
+      $lsbImage.removeClass('lsb-image-loaded');
+      $lsbImage.addClass('lsb-noimage');
+    }
+    
+    function displayImage(href) {
+      
     }
 
     /**
