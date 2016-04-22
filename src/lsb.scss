@@ -38,24 +38,17 @@
   
   img.lsb-image {
     position: absolute;
-    //padding: 30px;
-//    left: 50%;
-//    top: 50%;
-//    transform: translate(-50%, -50%);
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-//    display: table-cell;
-//    text-align: center;
-//    vertical-align: middle;
     max-height: 0%;
     max-width: 0%;
     min-width: 0;
     min-height: 0;
     margin: auto;
     box-shadow: 0 0 15px black;
-    transition: all .5s;
+    transition: all .35s ease-out;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;

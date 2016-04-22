@@ -27,7 +27,7 @@
     // Image download button.
     var $download;
     // Used for transition effect between slides.
-    var transitionTimeout = 600;
+    var transitionTimeout = 350;
 
     /**
      * Collection of images to show in lightbox.
