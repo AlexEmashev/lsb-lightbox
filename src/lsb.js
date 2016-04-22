@@ -67,6 +67,15 @@
 
         this.collection = hrefCollection;
         this.current = currentImage;
+        
+        // Hide next and previous buttons if there is only one image.
+        if (this.collection.length === 1) {
+          $prev.css('visibility', 'hidden');
+          $next.css('visibility', 'hidden');
+        } else {
+          $prev.css('visibility', 'visible');
+          $next.css('visibility', 'visible');
+        }
       },
       /**
        * Returns next image reference.
