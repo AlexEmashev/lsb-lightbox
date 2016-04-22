@@ -21,6 +21,8 @@
     var $prev;
     // Image download button.
     var $download;
+    // Used for transition effect between slides.
+    var transitionTimeout = 700;
 
     /**
      * Collection of images to show in lightbox.
@@ -102,7 +104,7 @@
       var spinCircle = '';
 
       var i;
-      for (i = 0; i < 11; i++) {
+      for (i = 0; i < 12; i++) {
         spinCircle += '<div class="spin-circle"></div>';
       }
 
@@ -180,8 +182,19 @@
       $lsbImage.addClass('lsb-noimage');
     }
     
-    function displayImage(href) {
-      
+    var imageLoaded = false;
+    var transitionTimerElapsed = false;
+    
+    /**
+    * Shows image when animation has finished.
+    */
+    function displayImage() {
+      if (transitionTimerElapsed) {
+        transitionTimerElapsed = false
+        $spinner.css('opacity', 0);
+        $lsbImage.removeClass('lsb-noimage');
+        $lsbImage.addClass('lsb-image-loaded');
+      }
     }
 
     /**
@@ -189,10 +202,20 @@
      * @param href image reference.
      */
     function switchImage(href) {
+      imageLoaded = false;
       $lsbImage.addClass('lsb-noimage');
       $lsbImage.removeClass('lsb-image-loaded');
       $spinner.css('opacity', 1);
-
+      // Set timeout to show the transition effect.
+      // Normally it'll be visible without timer, since image takes time to load.
+      // But if image is already in cache, there won't be any animation.
+      window.setTimeout(function(){
+        transitionTimerElapsed = true;
+        if(imageLoaded) {
+          displayImage();
+        }
+      }, transitionTimeout);
+      
       //Load image.
       var $img = $('<img />').attr('src', href).on('load', function () {
         // Get all images to set.
@@ -203,13 +226,13 @@
           // Image is broken.
           //$template.append('<span>No Image</span>');
         } else {
-          $spinner.css('opacity', 0);
-          $lsbImage.removeClass('lsb-noimage');
           $lsbImage.attr('src', $img.attr('src'));
-          $lsbImage.addClass('lsb-image-loaded');
           // Set download button reference
           $download.attr('href', href);
+          displayImage();
         }
+        
+        imageLoaded = true;
       });
     }
 
