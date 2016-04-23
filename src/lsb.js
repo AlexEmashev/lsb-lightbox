@@ -8,7 +8,7 @@
  * License: The MIT public license.
  */
 (function ($) {
-  $.fn.lightspeedBox = function(options) {
+  $.fn.lightspeedBox = function (options) {
     var defaultSettings = {
       showDownloadButton: true
     };
@@ -27,7 +27,7 @@
     // Image download button.
     var $download;
     // Used for transition effect between slides.
-    var transitionTimeout = 350;
+    var transitionTimeout = 400;
 
     /**
      * Collection of images to show in lightbox.
@@ -48,8 +48,8 @@
        */
       getImagesInSet: function (currentHref, groupAttr) {
         var images;
-        if(groupAttr) {
-          images = $('.lightspeed-preview[data-lsb-group="' + groupAttr + '"]')
+        if (groupAttr) {
+          images = $('.lightspeed-preview[data-lsb-group="' + groupAttr + '"]');
         } else {
           images = $('.lightspeed-preview:not([data-lsb-group])');
         }
@@ -226,7 +226,7 @@
       $lsbImage.removeClass('lsb-image-loaded');
       
       // Use timeout to let the image transition effect play.
-      window.setTimeout(function(){
+      window.setTimeout(function () {
         loadImage(href);
       }, transitionTimeout);
     }
@@ -236,7 +236,7 @@
       $spinner.css('opacity', 1);
       //Load image.
       var $img = $('<img />').attr('src', href).on('load', function () {
-        if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+        if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
           // ToDo: show something, when image is broken.
           // Image is broken.
           //$template.append('<span>No Image</span>');
