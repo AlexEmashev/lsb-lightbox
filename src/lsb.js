@@ -41,37 +41,44 @@
       current: null,
       /**
        * Image addresses collection.
+       * {href: 'www.example.com/img.jpg', alt: 'Sample image &quot;1&quot;'}
        */
-      collection: [],
+      images: [],
       /**
        * Fills image collection with appropriate images
        * @param currentHref - current image reference.
        * @groupAttr - attribute to split images in groups.
        */
       getImagesInSet: function (currentHref, groupAttr) {
-        var images;
+        var previews;
+        // Reset previous images.
+        var collectedImages = [];
+        var curImgIndex = 0;
+        // Get previews
         if (groupAttr) {
-          images = $('.lightspeed-preview[data-lsb-group="' + groupAttr + '"]');
+          previews = $('.lightspeed-preview[data-lsb-group="' + groupAttr + '"]');
         } else {
-          images = $('.lightspeed-preview:not([data-lsb-group])');
+          previews = $('.lightspeed-preview:not([data-lsb-group])');
         }
 
-        var hrefCollection = [];
-        var currentImage = null;
-
-        images.each(function (i, element) {
+        previews.each(function (i, element) {
           var elementHref = element.getAttribute('href');
-          hrefCollection.push(elementHref);
+          var alt = element.getAttribute('alt');
+          
+          collectedImages.push({href:elementHref, title:alt});
+          // Calculate image of the collection that should be displayed (the one user clicked).
           if (elementHref === currentHref) {
-            currentImage = i;
+            curImgIndex = i;
           }
         });
-
-        this.collection = hrefCollection;
-        this.current = currentImage;
+        
+        console.log(collectedImages);
+        
+        this.images = collectedImages;
+        this.current = curImgIndex;
 
         // Hide next and previous buttons if there is only one image.
-        if (this.collection.length === 1) {
+        if (this.images.length === 1) {
           $prev.css('visibility', 'hidden');
           $next.css('visibility', 'hidden');
         } else {
@@ -83,37 +90,37 @@
        * Returns next image reference.
        */
       nextImage: function () {
-        if (this.collection.length === 0) {
+        if (this.images.length === 0) {
           return '';
         }
 
         this.current += 1;
-        if (this.current > this.collection.length - 1) {
+        if (this.current > this.images.length - 1) {
           this.current = 0;
         }
-
-        return this.collection[this.current];
+        
+        return this.images[this.current];
       },
       /**
        * Returns previous image reference.
        */
       previousImage: function () {
-        if (this.collection.length === 0) {
+        if (this.images.length === 0) {
           return '';
         }
 
         this.current -= 1;
         if (this.current < 0) {
-          this.current = this.collection.length - 1;
+          this.current = this.images.length - 1;
         }
 
-        return this.collection[this.current];
+        return this.images[this.current];
       },
       /**
-       * Returns true if collection holds more than just one image.
+       * Returns true if images holds more than just one image.
        */
       canSwitch: function () {
-        return this.collection.length > 1;
+        return this.images.length > 1;
       }
     };
 
@@ -123,11 +130,10 @@
      * Initializes the lightbox.
      */
     (function init() {
-      var spinCircle = '';
+      var waitingIconCircle = '';
 
-      var i;
-      for (i = 0; i < 12; i++) {
-        spinCircle += '<div class="waitingicon-circle"></div>';
+      for (var i = 0; i < 12; i++) {
+        waitingIconCircle += '<div class="waitingicon-circle"></div>';
       }
 
       $('body').append(
@@ -137,7 +143,7 @@
         '<img class="lsb-image lsb-noimage">' +
         '</div>' +
         '<div class="waitingicon">' +
-        spinCircle +
+        waitingIconCircle +
         '</div>' +
         '<div class="lsb-control lsb-close"><span class="lsb-control-text">˟</span></div>' +
         '<div class="lsb-control lsb-prev"><span class="lsb-control-text">&lt;</span></div>' +
@@ -160,10 +166,12 @@
       if (!settings.showDownloadButton) {
         $download.css('display', 'none');
       }
+      
+      ///// Add event handlers for elements.
 
       // Add swipe detection plugin
       $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function (event) {
-        if (imageCollection.collection.length > 1) {
+        if (imageCollection.images.length > 1) {
           if (event.type === 'swipeLeft') {
             switchImage(imageCollection.nextImage());
           } else if (event.type === 'swipeRight') {
@@ -172,15 +180,13 @@
         }
       });
 
-      ///// Add event handlers for elements.
 
       /**
        * Next image button click.
        */
       $next.click(function (event) {
         event.stopPropagation();
-        var img = imageCollection.nextImage();
-        switchImage(img);
+        switchImage(imageCollection.nextImage());
       });
 
       /**
@@ -188,13 +194,12 @@
        */
       $prev.click(function (event) {
         event.stopPropagation();
-        var img = imageCollection.previousImage();
-        switchImage(img);
+        switchImage(imageCollection.previousImage());
       });
 
       $lsbImage.click(function (event) {
         event.stopPropagation();
-        if (imageCollection.collection.length > 1) {
+        if (imageCollection.images.length > 1) {
           switchImage(imageCollection.nextImage());
         } else {
           closeLightbox();
@@ -226,15 +231,6 @@
     }
 
     /**
-     * Shows image when animation has finished.
-     */
-    function displayImage() {
-      $spinner.css('display', 'none');
-      $lsbImage.removeClass('lsb-noimage');
-      $lsbImage.addClass('lsb-image-loaded');
-    }
-
-    /**
      * Switches image to specific.
      * @param href image reference.
      */
@@ -249,21 +245,34 @@
     }
 
 
-    function loadImage(href) {
+    function loadImage(imageObj) {
+      console.log('Try to load', imageObj);
       $spinner.css('display', 'block');
       //Load image.
-      var $img = $('<img />').attr('src', href).on('load', function () {
+      var $img = $('<img />').attr('src', imageObj.href).on('load', function () {
         if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
           // ToDo: show something, when image is broken.
           // Image is broken.
           //$template.append('<span>No Image</span>');
+          console.log('Image not loaded');
         } else {
           $lsbImage.attr('src', $img.attr('src'));
           // Set download button reference
-          $download.attr('href', href);
+          $download.attr('href', imageObj.href);
+          console.log('About to Display image');
           displayImage();
         }
       });
+    }
+    
+    /**
+     * Shows image when animation has finished.
+     */
+    function displayImage() {
+      console.log('Display image');
+      $spinner.css('display', 'none');
+      $lsbImage.removeClass('lsb-noimage');
+      $lsbImage.addClass('lsb-image-loaded');
     }
 
     ////////// Event handlers ///////////
@@ -279,7 +288,7 @@
       imageCollection.getImagesInSet(fullSizeHref, group);
 
       showLightbox();
-      switchImage(fullSizeHref);
+      switchImage(imageCollection.images[imageCollection.current]);
     });
   };
 
