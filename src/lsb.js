@@ -72,8 +72,6 @@
           }
         });
         
-        console.log(collectedImages);
-        
         this.images = collectedImages;
         this.current = curImgIndex;
 
@@ -179,6 +177,24 @@
           }
         }
       });
+      
+      /**
+      * Keyboard support.
+      */
+      $(document).on('keyup.lightspeed-box', function (event) {
+        if ($lsb.hasClass('lsb-active')) {
+          // Right button press
+          if (event.which === 39) {
+            event.stopPropagation();
+            switchImage(imageCollection.nextImage());
+          } else if (event.which === 37) { // Left button press
+            event.stopPropagation();
+            switchImage(imageCollection.previousImage());
+          } else if (event.which === 27) { // Esc button press
+            closeLightbox();
+          }
+        }
+      });
 
 
       /**
@@ -210,7 +226,6 @@
        * Click on empty space of lightbox.
        */
       $lsb.click(function (event) {
-        console.log('Close clicked', event);
         closeLightbox();
       });
     })();
