@@ -75,32 +75,38 @@
       images: [],
       /**
        * Fills image collection with appropriate images
-       * @param currentHref - current image reference.
-       * @groupAttr - attribute to split images in groups.
+       * @param selectedImg - current image element.
        */
-      getImagesInSet: function (currentHref, groupAttr) {
+      getImagesInSet: function (selectedImg) {
         var previews;
         // Reset previous images.
         var collectedImages = [];
         var curImgIndex = 0;
-        // Get previews
-        if (groupAttr) {
-          previews = $('.lightspeed-preview[data-lsb-group="' + groupAttr + '"]');
-        } else {
-          previews = $('.lightspeed-preview:not([data-lsb-group])');
+        
+        // Get selected image props
+        var selectedImgHref = event.target.parentElement.getAttribute('href');
+        var selectedImgAlt = event.target.getAttribute('alt');
+        // Check if element is in group.
+        var group = event.target.parentElement.getAttribute('data-lsb-group');
+        
+        // Get all images in group
+        if (group) {
+          previews = $('.lightspeed-preview[data-lsb-group="' + group + '"]');
+          // Fill collection with found elements.
+          previews.each(function (i, element) {
+            var elementHref = element.getAttribute('href');
+            var alt = element.getAttribute('alt');
+
+            collectedImages.push({href:elementHref, alt:alt});
+            // Calculate image of the collection that should be displayed (the one user clicked).
+            if (elementHref === selectedImgHref) {
+              curImgIndex = i;
+            }
+          });
+        } else { // If it is a single image
+          collectedImages.push({href: selectedImgHref, alt: selectedImgAlt});
         }
 
-        previews.each(function (i, element) {
-          var elementHref = element.getAttribute('href');
-          var alt = element.getAttribute('alt');
-          
-          collectedImages.push({href:elementHref, alt:alt});
-          // Calculate image of the collection that should be displayed (the one user clicked).
-          if (elementHref === currentHref) {
-            curImgIndex = i;
-          }
-        });
-        
         this.images = collectedImages;
         this.current = curImgIndex;
         // Hide next and previous buttons if there is only one image.
@@ -216,11 +222,11 @@
       */
       $(document).on('keyup.lightspeed-box', function (event) {
         if ($lsb.hasClass('lsb-active')) {
-          // Right button press
-          if (event.which === 39) {
+          // Right button press. Image switching make sence only if there are more than one image in collection.
+          if (event.which === 39 && imageCollection.images.length > 1) {
             event.stopPropagation();
             switchImage(imageCollection.nextImage());
-          } else if (event.which === 37) { // Left button press
+          } else if (event.which === 37 && imageCollection.images.length > 1) { // Left button press
             event.stopPropagation();
             switchImage(imageCollection.previousImage());
           } else if (event.which === 27) { // Esc button press
@@ -270,6 +276,18 @@
       });
       
     })();
+    
+        /**
+     * Click on any of the previews.
+     */
+    $('.lightspeed-preview').click(function (event) {
+      event.preventDefault();
+      // Get all images to set.
+      imageCollection.getImagesInSet(this);
+
+      showLightbox();
+      switchImage(imageCollection.images[imageCollection.current]);
+    });
 
     /**
      * Shows lightbox.
@@ -306,12 +324,14 @@
     * Loads full size image.
     */
     function loadImage(imageObj) {
-      console.log(imageObj);
       $spinner.css('display', 'block');
+      console.log('Curr img collection:', imageCollection);
       // Show current image number.
       if (settings.showImageCount && imageCollection.images.length > 1) {
         console.log(imageCollection);
         $lsbCount.text((imageCollection.current + 1) + '/' + imageCollection.images.length);
+      } else {
+          $lsbCount.text('');
       }
       
       //Load image.
@@ -347,22 +367,6 @@
       $lsbImage.addClass('lsb-image-loaded');
       $lsbTitle.removeClass('lsb-image-notitle');
     }
-
-    ////////// Event handlers ///////////
-
-    /**
-     * Click on any of the previews.
-     */
-    $('.lightspeed-preview').click(function (event) {
-      event.preventDefault();
-      var fullSizeHref = event.target.parentElement.getAttribute('href');
-      var group = $(this).attr('data-lsb-group');
-      // Get all images to set.
-      imageCollection.getImagesInSet(fullSizeHref, group);
-
-      showLightbox();
-      switchImage(imageCollection.images[imageCollection.current]);
-    });
   };
 
   /** Plugin to detect swipes
