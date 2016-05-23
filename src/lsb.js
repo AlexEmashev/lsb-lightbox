@@ -10,25 +10,54 @@
 (function ($) {
   $.fn.lightspeedBox = function (options) {
     var defaultSettings = {
-      showDownloadButton: true
+      showDownloadButton: true,
+      showImageTitle: true,
+      showImageCount: true
     };
+    /**
+    * Settings of the plugin.
+    */
     var settings = $.extend(defaultSettings, options);
 
-    // Lightbox element..
+    /**
+    * Lightbox element.
+    */
     var $lsb;
-    // Wait cursor.
+    /**
+    * Wait cursor.
+    */
     var $spinner;
-    // Image reference in lightbox.
+    /**
+    * Image reference in lightbox.
+    */
     var $lsbImage;
-    // Next image button.
+    /**
+    * Image title from alt tag.
+    */
+    var $lsbTitle;
+    /**
+    * Image count
+    */
+    var $lsbCount;
+    /**
+    * Next image button.
+    */
     var $next;
-    // Previous image button.
+    /**
+    * Previous image button.
+    */
     var $prev;
-    // Close button
+    /**
+    * Close button.
+    */
     var $close;
-    // Image download button.
+    /**
+    * Image download button.
+    */
     var $download;
-    // Used for transition effect between slides.
+    /**
+    * Used for transition effect between slides.
+    */
     var transitionTimeout = 400;
 
     /**
@@ -65,7 +94,7 @@
           var elementHref = element.getAttribute('href');
           var alt = element.getAttribute('alt');
           
-          collectedImages.push({href:elementHref, title:alt});
+          collectedImages.push({href:elementHref, alt:alt});
           // Calculate image of the collection that should be displayed (the one user clicked).
           if (elementHref === currentHref) {
             curImgIndex = i;
@@ -74,7 +103,6 @@
         
         this.images = collectedImages;
         this.current = curImgIndex;
-
         // Hide next and previous buttons if there is only one image.
         if (this.images.length === 1) {
           $prev.css('visibility', 'hidden');
@@ -137,6 +165,8 @@
       $('body').append(
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
+        '<h3 class="lsb-image-count"></h3>' +
+        '<h2 class="lsb-image-title"></h2>' +
         '<div class="lsb-image-container">' +
         '<img class="lsb-image lsb-noimage">' +
         '</div>' +
@@ -154,6 +184,8 @@
       $lsb = $('.lightspeed-box');
       $spinner = $('.waitingicon');
       $lsbImage = $lsb.find('.lsb-image');
+      $lsbTitle = $lsb.find('.lsb-image-title');
+      $lsbCount = $lsb.find('.lsb-image-count');
       // Next image button.
       $next = $lsb.find('.lsb-next');
       // Previous image button.
@@ -169,6 +201,7 @@
 
       // Add swipe detection plugin
       $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function (event) {
+        console.log('swipe', event);
         if (imageCollection.images.length > 1) {
           if (event.type === 'swipeLeft') {
             switchImage(imageCollection.nextImage());
@@ -228,6 +261,14 @@
       $lsb.click(function (event) {
         closeLightbox();
       });
+      
+      /**
+      * Allow user to click or select image title.
+      */
+      $lsbTitle.click(function (event) {
+        event.stopPropagation();
+      });
+      
     })();
 
     /**
@@ -247,34 +288,51 @@
 
     /**
      * Switches image to specific.
-     * @param href image reference.
+     * @param imageObj image to which to switch to reference.
      */
-    function switchImage(href) {
+    function switchImage(imageObj) {
       $lsbImage.addClass('lsb-noimage');
       $lsbImage.removeClass('lsb-image-loaded');
+      $lsbTitle.addClass('lsb-image-notitle');
 
       // Use timeout to let the image transition effect play.
       window.setTimeout(function () {
-        loadImage(href);
+        loadImage(imageObj);
       }, transitionTimeout);
     }
 
 
+    /**
+    * Loads full size image.
+    */
     function loadImage(imageObj) {
-      console.log('Try to load', imageObj);
+      console.log(imageObj);
       $spinner.css('display', 'block');
+      // Show current image number.
+      if (settings.showImageCount && imageCollection.images.length > 1) {
+        console.log(imageCollection);
+        $lsbCount.text((imageCollection.current + 1) + '/' + imageCollection.images.length);
+      }
+      
       //Load image.
       var $img = $('<img />').attr('src', imageObj.href).on('load', function () {
         if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
           // ToDo: show something, when image is broken.
           // Image is broken.
           //$template.append('<span>No Image</span>');
+          $download.attr('href', imageObj.href);
+          // Show at least a title, so user can refer it as didn't load image.
+          $lsbTitle.text(imageObj.alt);
           console.log('Image not loaded');
         } else {
+          // Set image.
           $lsbImage.attr('src', $img.attr('src'));
+          if(settings.showImageTitle) {
+            // Set image title.
+            $lsbTitle.text(imageObj.alt);
+          }
           // Set download button reference
           $download.attr('href', imageObj.href);
-          console.log('About to Display image');
           displayImage();
         }
       });
@@ -284,10 +342,10 @@
      * Shows image when animation has finished.
      */
     function displayImage() {
-      console.log('Display image');
       $spinner.css('display', 'none');
       $lsbImage.removeClass('lsb-noimage');
       $lsbImage.addClass('lsb-image-loaded');
+      $lsbTitle.removeClass('lsb-image-notitle');
     }
 
     ////////// Event handlers ///////////
