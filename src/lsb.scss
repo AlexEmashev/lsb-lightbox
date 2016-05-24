@@ -1,11 +1,13 @@
 
+$lsbUIColor: #ffffff;
+// z-index according 10 gap between possible values
+// e.g. 0 - 9 for main block, 
+// 10 - 19 for side panels
+// 20 - 29 for header elements
+// 30 + for the top most elements such as this lightbox 
+$lsbZindex: 30;
+
 .lightspeed-box {
-  // z-index according 10 gap between possible values
-  // e.g. 0 - 9 for main block, 
-  // 10 - 19 for side panels
-  // 20 - 29 for header elements
-  // 30 + for the top most elements such as this lightbox 
-  $lsbZindex: 30;
   visibility: hidden;
   opacity: 0;
   top: 0;
@@ -71,14 +73,27 @@
     min-width: 0;
     min-height: 0;
     margin: auto;
-    box-shadow: 0 0 15px #000000;
+    //box-shadow: 0 0 15px #000000;
     transition: all .95s cubic-bezier(0.12, 0.58, 0.26, 0.99);
     user-select: none;
+    object-fit: scale-down; // Fix scale issues in Firefox
     
     &.lsb-image-loaded {
       max-height: 100%;
       max-width: 100%;
     }
+  }
+  
+  .lsb-no-image-found {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100px;
+    overflow: visible;
+    display: none;
   }
   
   .lsb-image-title {
@@ -91,7 +106,7 @@
     padding: 5px 10px;
     transform: translateX(50%);
     z-index: $lsbZindex + 2;
-    color: #ffffff;
+    color: $lsbUIColor;
     font-size: 14px;
     text-shadow: 0 1px 4px #000000;
     background: rgba(0, 0, 0, .32);
@@ -110,20 +125,20 @@
     right: 50%;
     transform: translateX(50%);
     z-index: $lsbZindex + 2;
-    color: #ffffff;
+    color: $lsbUIColor;
     font-size: 12px;
     text-shadow: 0 1px 4px #000000;
   }
   
   .lsb-control {
     cursor: pointer;
-    color: #D0D0D0;
+    color: $lsbUIColor;
     overflow: visible;
     text-shadow: 0 0 2px #000;
     
     &:hover {
-      color: #ffffff;
-      text-shadow: 0 0 2px #000, 0 0 20px #fff;
+      color: $lsbUIColor;
+      text-shadow: 0 0 2px #000, 0 0 20px $lsbUIColor;
     }
   }
   
@@ -166,7 +181,7 @@
     z-index: $lsbZindex + 3;
     text-align: right;
     .lsb-control-text {
-      font-size: 74px;
+      font-size: 30px;
       margin-right: 30px;
     }
   }
@@ -306,7 +321,7 @@
       margin: 0 auto;
       width: 12px;
       height: 12px;
-      background-color: #DA8BE0;
+      background-color: $lsbUIColor;
       border-radius: 50%;
       animation: waitingiconSicrleDelay 1.2s infinite ease-in-out both;
     }

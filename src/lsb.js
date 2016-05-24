@@ -12,7 +12,14 @@
     var defaultSettings = {
       showDownloadButton: true,
       showImageTitle: true,
-      showImageCount: true
+      showImageCount: true,
+      locale: {
+        nextButton: 'Next image',
+        prevButton: 'Previous image',
+        closeButton: 'Exit',
+        downloadButton: 'Download image',
+        noImageFound: 'Sorry, no image found.'
+      }
     };
     /**
     * Settings of the plugin.
@@ -39,6 +46,10 @@
     * Image count
     */
     var $lsbCount;
+    /**
+    * No image found message.
+    */
+    var $noImageFound;
     /**
     * Next image button.
     */
@@ -75,19 +86,19 @@
       images: [],
       /**
        * Fills image collection with appropriate images
-       * @param selectedImg - current image element.
+       * @param $selectedImg - current image element.
        */
-      getImagesInSet: function (selectedImg) {
+      getImagesInSet: function ($selectedImg) {
         var previews;
         // Reset previous images.
         var collectedImages = [];
         var curImgIndex = 0;
         
         // Get selected image props
-        var selectedImgHref = event.target.parentElement.getAttribute('href');
-        var selectedImgAlt = event.target.getAttribute('alt');
+        var selectedImgHref = $selectedImg.attr('href');
+        var selectedImgAlt = $selectedImg.find('img').attr('alt');
         // Check if element is in group.
-        var group = event.target.parentElement.getAttribute('data-lsb-group');
+        var group = $selectedImg.attr('data-lsb-group');
         
         // Get all images in group
         if (group) {
@@ -95,7 +106,7 @@
           // Fill collection with found elements.
           previews.each(function (i, element) {
             var elementHref = element.getAttribute('href');
-            var alt = element.getAttribute('alt');
+            var alt = $(element).find('img').attr('alt');
 
             collectedImages.push({href:elementHref, alt:alt});
             // Calculate image of the collection that should be displayed (the one user clicked).
@@ -171,17 +182,19 @@
       $('body').append(
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
-        '<h3 class="lsb-image-count"></h3>' +
+        '<h3 class="lsb-image-count" title="Count of images in set and current image number"></h3>' +
         '<h2 class="lsb-image-title"></h2>' +
+        '<div class="lsb-no-image-found"></div>' +
         '<div class="lsb-image-container">' +
         '<img class="lsb-image lsb-noimage">' +
         '</div>' +
         '<div class="waitingicon">' +
         waitingIconCircle +
         '</div>' +
-        '<div class="lsb-control lsb-close"><span class="lsb-control-text">˟</span></div>' +
-        '<div class="lsb-control lsb-prev"><span class="lsb-control-text">&lt;</span></div>' +
-        '<div class="lsb-control lsb-next"><span class="lsb-control-text">&gt;</span></div>' +
+        '<div class="lsb-control lsb-close"><span class="lsb-control-text" title="Close the image">&#x2716;</span></div>' +
+        '<div class="lsb-control lsb-prev"><span class="lsb-control-text"  title="Next image">&lt;</span></div>' +
+        '<div class="lsb-control lsb-next"><span class="lsb-control-text" title="Previous image">&gt;</span></div>' +
+        '<div class="lsb-control lsb-download"><span class="lsb-control-text" title="Download image"></span></div>' +
         '</div>' +
         '</div>'
       );
@@ -192,18 +205,26 @@
       $lsbImage = $lsb.find('.lsb-image');
       $lsbTitle = $lsb.find('.lsb-image-title');
       $lsbCount = $lsb.find('.lsb-image-count');
+      $noImageFound = $lsb.find('.lsb-no-image-found'); // No image found message.
       // Next image button.
       $next = $lsb.find('.lsb-next');
       // Previous image button.
       $prev = $lsb.find('.lsb-prev');
       $close = $lsb.find('.lsb-close');
       $download = $lsb.find('.lsb-download');
-
+      
       if (!settings.showDownloadButton) {
         $download.css('display', 'none');
       }
       
-      ///// Add event handlers for elements.
+      $next.attr('title', settings.locale.nextButton);
+      $prev.attr('title', settings.locale.prevButton);
+      $close.attr('title', settings.locale.closeButton);
+      $noImageFound.text(settings.locale.noImageFound);
+      
+      
+      
+      ///// Add event handlers for elements. //////
 
       // Add swipe detection plugin
       $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function (event) {
@@ -233,7 +254,6 @@
           }
         }
       });
-
 
       /**
        * Next image button click.
@@ -282,7 +302,7 @@
     $('.lightspeed-preview').click(function (event) {
       event.preventDefault();
       // Get all images to set.
-      imageCollection.getImagesInSet(this);
+      imageCollection.getImagesInSet($(this));
 
       showLightbox();
       switchImage(imageCollection.images[imageCollection.current]);
@@ -312,6 +332,7 @@
       $lsbImage.addClass('lsb-noimage');
       $lsbImage.removeClass('lsb-image-loaded');
       $lsbTitle.addClass('lsb-image-notitle');
+      $noImageFound.hide();
 
       // Use timeout to let the image transition effect play.
       window.setTimeout(function () {
@@ -324,7 +345,7 @@
     * Loads full size image.
     */
     function loadImage(imageObj) {
-      $spinner.css('display', 'block');
+      $spinner.show();
       // Show current image number.
       if (settings.showImageCount && imageCollection.images.length > 1) {
         $lsbCount.text((imageCollection.current + 1) + '/' + imageCollection.images.length);
@@ -334,15 +355,6 @@
       
       //Load image.
       var $img = $('<img />').attr('src', imageObj.href).on('load', function () {
-        if (!this.complete || typeof this.naturalWidth === "undefined" || this.naturalWidth === 0) {
-          // ToDo: show something, when image is broken.
-          // Image is broken.
-          //$template.append('<span>No Image</span>');
-          $download.attr('href', imageObj.href);
-          // Show at least a title, so user can refer it as didn't load image.
-          $lsbTitle.text(imageObj.alt);
-          console.log('Image not loaded');
-        } else {
           // Set image.
           $lsbImage.attr('src', $img.attr('src'));
           if(settings.showImageTitle) {
@@ -352,7 +364,12 @@
           // Set download button reference
           $download.attr('href', imageObj.href);
           displayImage();
-        }
+      }).on('error', function(error) {
+        $spinner.hide();
+        // Show at least a title, so user can refer it to define a problem.
+        $lsbTitle.text(imageObj.alt);
+        $noImageFound.show();
+        console.log('[LSB Error]:', error);
       });
     }
     
@@ -360,14 +377,15 @@
      * Shows image when animation has finished.
      */
     function displayImage() {
-      $spinner.css('display', 'none');
+      $spinner.hide();
       $lsbImage.removeClass('lsb-noimage');
       $lsbImage.addClass('lsb-image-loaded');
       $lsbTitle.removeClass('lsb-image-notitle');
     }
   };
 
-  /** Plugin to detect swipes
+  /** 
+   * Plugin to detect swipes
    */
   $.fn.swipeDetector = function (options) {
     // States: 0 - no swipe, 1 - swipe started, 2 - swipe released
