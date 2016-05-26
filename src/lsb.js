@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * jQuery plugin "Lightspeed box".
  * Lightbox plugin with transitions and wait cursor.
@@ -8,17 +6,18 @@
  * License: The MIT public license.
  */
 (function ($) {
+  'use strict';
   $.fn.lightspeedBox = function (options) {
     var defaultSettings = {
-      showDownloadButton: true,
       showImageTitle: true,
       showImageCount: true,
       locale: {
         nextButton: 'Next image',
         prevButton: 'Previous image',
-        closeButton: 'Exit',
+        closeButton: 'Close',
         downloadButton: 'Download image',
-        noImageFound: 'Sorry, no image found.'
+        noImageFound: 'Sorry, no image found.',
+        zIndex: 30
       }
     };
     /**
@@ -108,7 +107,7 @@
             var elementHref = element.getAttribute('href');
             var alt = $(element).find('img').attr('alt');
 
-            collectedImages.push({href:elementHref, alt:alt});
+            collectedImages.push({href: elementHref, alt: alt});
             // Calculate image of the collection that should be displayed (the one user clicked).
             if (elementHref === selectedImgHref) {
               curImgIndex = i;
@@ -192,15 +191,15 @@
         waitingIconCircle +
         '</div>' +
         '<div class="lsb-control lsb-close"><span class="lsb-control-text" title="Close the image">&#x2716;</span></div>' +
-        '<div class="lsb-control lsb-prev"><span class="lsb-control-text"  title="Next image">&lt;</span></div>' +
+        '<div class="lsb-control lsb-prev"><span class="lsb-control-text" title="Next image">&lt;</span></div>' +
         '<div class="lsb-control lsb-next"><span class="lsb-control-text" title="Previous image">&gt;</span></div>' +
-        '<div class="lsb-control lsb-download"><span class="lsb-control-text" title="Download image"></span></div>' +
         '</div>' +
         '</div>'
       );
 
       // Lightbox element.
       $lsb = $('.lightspeed-box');
+      $lsb.css('z-index', settings.zIndex);
       $spinner = $('.waitingicon');
       $lsbImage = $lsb.find('.lsb-image');
       $lsbTitle = $lsb.find('.lsb-image-title');
@@ -217,6 +216,7 @@
         $download.css('display', 'none');
       }
       
+      // Set l10n.
       $next.attr('title', settings.locale.nextButton);
       $prev.attr('title', settings.locale.prevButton);
       $close.attr('title', settings.locale.closeButton);
@@ -226,7 +226,7 @@
       
       ///// Add event handlers for elements. //////
 
-      // Add swipe detection plugin
+      // Add swipe detection plugin.
       $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function (event) {
         if (imageCollection.images.length > 1) {
           if (event.type === 'swipeLeft') {
