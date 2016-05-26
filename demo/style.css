@@ -1,0 +1,85 @@
+/* line 9, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+* {
+  box-sizing: border-box;
+  font-family: sans-serif; }
+
+/* line 15, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+body {
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  color: #000000; }
+
+/* line 25, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  color: #64B3A5;
+  margin: 0; }
+
+/* line 30, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+h1 {
+  margin: 0;
+  font-size: 50px; }
+
+/* line 34, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+header {
+  background: #64B3A5;
+  display: block;
+  margin: 0;
+  padding: 2em;
+  color: #F7F7F7; }
+  /* line 40, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  header h1 {
+    color: #F7F7F7; }
+  /* line 43, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  header h2 {
+    margin: 0;
+    font-size: 14px;
+    color: #F7F7F7; }
+
+/* line 49, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+section {
+  margin: 0;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background: #F7F7F7; }
+
+/* line 56, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding-bottom: 1em; }
+
+/* line 63, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+.default-block {
+  width: 100%; }
+
+/* line 67, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+.accent-block {
+  width: 100%;
+  background: #7AA6B7;
+  color: #ffffff; }
+
+/* line 76, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+.code {
+  background: #f7f4e2;
+  margin-bottom: 1em; }
+
+/* line 81, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+.lsb-preview {
+  display: block;
+  float: left;
+  width: 25%;
+  border: 2px solid white, 5px solid red; }
+  /* line 85, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  .lsb-preview img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom; }
+
+/*# sourceMappingURL=style.css.map */

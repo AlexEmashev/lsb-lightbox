@@ -4,80 +4,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lightspeed lightbox</title>
-  <link rel="stylesheet" href="../src/style.css">
-  <link rel="stylesheet" href="../src/lsb.css">
-  <script src="../src/jquery-2.2.3.min.js"></script>
-  <script src="../src/lsb.js"></script>
+  <title>LightSpeedBox lightbox jQuery plugin</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lsb.css">
+  <script src="jquery-2.2.3.min.js"></script>
+  <script src="lsb.js"></script>
   <script>
     $(window).load(function() {
       $.fn.lightspeedBox();
     });
+
   </script>
 </head>
 
 <body>
   <header>
-    <h1>Image gallery</h1>
+    <h1>LightSpeedBox</h1>
+    <h2>Lightbox plugin for jQuery</h2>
   </header>
+
+
   <article>
-    <section id="gallery">
-      <figure class="item">
+    <section class="info">
+      <div class="default-block">
+        <div class="content">
+          <h2>About</h2>
+          <p>LightSpeedBox is a jQuery plugin for organization of a fancy preview box for images (also usually called a lightbox).</p>
 
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_31.png" data-lsb-group="group1"><img src="img/01day_1.png" alt="Day 1"></a>
-        <div class="description">
-          This is a sample image
+          <h3>Key features:</h3>
+          <ul>
+            <li>Show the lightbox by click on a thumbnail</li>
+            <li>Support displaying individual images as well as switching through a set</li>
+            <li>Controls: next, previous image, close button, keyboard, swipe for touch screens</li>
+            <li>Smooth transitions and animations</li>
+            <li>Localization</li>
+          </ul>
         </div>
-      </figure>
+      </div>
+    </section>
 
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_10.png" data-lsb-group="group1"><img src="img/02day_10.png" alt='Another image &quot;day2&quot;' ></a>
-        <div class="description">
-          This is a sample image
-        </div>
-      </figure>
 
-      <figure class="item">
-        <header class="header">Standing girl</header>
-        <a class="lightspeed-preview" href="img/day_11.png" data-lsb-group="group1"><img src="img/03day_11.png" alt="Day 3"></a>
-        <div class="description">
-          Standing Girl
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>Individual image preview</h2>
+          <p>To preview a single image with LSB lightbox, use class '.lsb-preview' on that image. And don't forget to activate a plugin in JavaScript code.</p>
+          <div class="code">
+            // Example of code
+          </div>
         </div>
-      </figure>
+      </div>
+      <div class="accent-block">
+        <div class="content showcase single-image">
+          <p>This is some text an article if you like. An article that wants to display individual images like one below.</p>
+          <a href="img/a_cat_and_a_balloon.jpg" class="lsb-preview single">
+            <img src="img/a_cat_and_a_balloon_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <p>Or, check this one too. This image is simply nonsense, but it displays, the feature.</p>
+          <a href="img/a_survivor.jpg" class="lsb-preview single">
+            <img src="img/a_survivor_prev.jpg" alt="A cat and a baloon">
+          </a>
+        </div>
+      </div>
+    </section>
 
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_12.png"><img src="img/04day_12.png" alt="Day 4"></a>
-        <div class="description">
-          This is a sample image
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>Lightbox for Gallery</h2>
+          <p>This way you can use lightbox plugin to preview images in gallery.</p>
+          <div class="code">
+            // Example of code
+          </div>
         </div>
-      </figure>
-      
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_23.png" data-lsb-group="group2">
-        <img src="img/16day_23.png" alt="Day 4"></a>
-        <div class="description">
-          This is a sample image
+      </div>
+      <div class="accent-block">
+        <div class="content showcase gallery">
+          <a href="img/summer_days.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/summer_days_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/zhenya_from_everlasting_summer.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/zhenya_from_everlasting_summer_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/little_red_riding_hood.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/little_red_riding_hood_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/tiny_vacation.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/tiny_vacation_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/zootopia_fan_art.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/zootopia_fan_art_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/6_children_game_concepts.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/6_children_game_concepts_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/everything_s_fine.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/everything_s_fine_dev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/lucy_wilde.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/lucy_wilde_prev.jpg" alt="A cat and a baloon">
+          </a>
         </div>
-      </figure>
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_24.png" data-lsb-group="group2">
-        <img src="img/17day_24.png" alt="Day 4"></a>
-        <div class="description">
-          This is a sample image
+      </div>
+    </section>
+
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>Mixed example</h2>
+          <p>Cople image in groups. Couple separate.</p>
+          <div class="code">
+            // Example of code
+          </div>
         </div>
-      </figure>
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_5.png"><img src="img/21day_5.png" alt="Girl that says Hi!"></a>
-        <div class="description">
-          This is a sample image
+      </div>
+      <div class="accent-block">
+        <div class="content showcase gallery">
         </div>
-      </figure>
+      </div>
+    </section>
+
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>No image</h2>
+          <p>This what happens if full size image isn't found.</p>
+          <div class="code">
+            // Example of code
+          </div>
+        </div>
+      </div>
+      <div class="accent-block">
+        <div class="content showcase gallery">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>API</h2>
+          <p>Plugin supports settings through a simple JavaScript object passed as a parameter.</p>
+          <div class="code">
+            // Example of code
+          </div>
+        </div>
+      </div>
+      <div class="accent-block">
+        <div class="content showcase gallery">
+        </div>
+      </div>
     </section>
   </article>
 </body>

@@ -1,0 +1,93 @@
+$bg-color: #F7F7F7;
+$bg-dark-color: #64B3A5;
+$bg-default-block-color: #f4f4f4;
+$bg-accent-block-color: #7AA6B7;
+$text-accent-block-color: #ffffff;
+$bg-showcase-color: #999;
+$bg-code-color: #f7f4e2;
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+html,
+body {}
+body {
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  color: #000000;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  color: $bg-dark-color;
+  margin: 0;
+}
+h1 {
+  margin: 0;
+  font-size: 50px;
+}
+header {
+  background: $bg-dark-color;
+  display: block;
+  margin: 0;
+  padding: 2em;
+  color: $bg-color;
+  h1 {
+    color: $bg-color;
+  }
+  h2 {
+    margin: 0;
+    font-size: 14px;
+    color: $bg-color;
+  }
+}
+section {
+  margin: 0;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background: $bg-color;
+}
+
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding-bottom: 1em;
+}
+
+.default-block {
+  width: 100%;  
+}
+
+.accent-block {
+  width: 100%;
+  background: $bg-accent-block-color;
+  color: $text-accent-block-color
+}
+
+.showcase {
+}
+
+.code {
+  background: $bg-code-color;
+  margin-bottom: 1em;
+}
+
+.lsb-preview {
+  display: block;
+  float: left;
+  width: 25%;
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom; // Image aligns according baseline.
+  }
+  border: 2px solid white, 
+    5px solid red;
+  
+}
