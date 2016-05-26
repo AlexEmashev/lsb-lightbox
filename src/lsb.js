@@ -101,7 +101,7 @@
         
         // Get all images in group
         if (group) {
-          previews = $('.lightspeed-preview[data-lsb-group="' + group + '"]');
+          previews = $('.lsb-preview[data-lsb-group="' + group + '"]');
           // Fill collection with found elements.
           previews.each(function (i, element) {
             var elementHref = element.getAttribute('href');
