@@ -270,7 +270,22 @@
         event.stopPropagation();
         switchImage(imageCollection.previousImage());
       });
+      
+      /**
+      * Click on element, that is displayed when no image found.
+      */
+      $noImageFound.click(function (event) {
+        event.stopPropagation();
+        if (imageCollection.images.length > 1) {
+          switchImage(imageCollection.nextImage());
+        } else {
+          closeLightbox();
+        }
+      });
 
+      /**
+      * Click on image.
+      */
       $lsbImage.click(function (event) {
         event.stopPropagation();
         if (imageCollection.images.length > 1) {
@@ -299,7 +314,7 @@
     /**
      * Click on any of the previews.
      */
-    $('.lsb-preview').click(function (event) {
+    $('.lightspeed-preview').click(function (event) {
       event.preventDefault();
       // Get all images to set.
       imageCollection.getImagesInSet($(this));

@@ -183,8 +183,8 @@
         '<div class="lsb-content">' +
         '<h3 class="lsb-image-count" title="Count of images in set and current image number"></h3>' +
         '<h2 class="lsb-image-title"></h2>' +
-        '<div class="lsb-no-image-found"></div>' +
         '<div class="lsb-image-container">' +
+        '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, image not found.</div></div>' +
         '<img class="lsb-image lsb-noimage">' +
         '</div>' +
         '<div class="waitingicon">' +
@@ -220,7 +220,7 @@
       $next.attr('title', settings.locale.nextButton);
       $prev.attr('title', settings.locale.prevButton);
       $close.attr('title', settings.locale.closeButton);
-      $noImageFound.text(settings.locale.noImageFound);
+      $noImageFound.find('.no-found-msg').text(settings.locale.noImageFound);
       
       
       
@@ -270,15 +270,25 @@
         event.stopPropagation();
         switchImage(imageCollection.previousImage());
       });
+      
+      /**
+      * Click on element, that is displayed when no image found.
+      */
+      $noImageFound.click(switchOrCloseImage);
 
-      $lsbImage.click(function (event) {
+      /**
+      * Click on image.
+      */
+      $lsbImage.click(switchOrCloseImage);
+      
+      function switchOrCloseImage(event) {
         event.stopPropagation();
         if (imageCollection.images.length > 1) {
           switchImage(imageCollection.nextImage());
         } else {
           closeLightbox();
         }
-      });
+      }
 
       /**
        * Click on empty space of lightbox.
@@ -299,7 +309,7 @@
     /**
      * Click on any of the previews.
      */
-    $('.lightspeed-preview').click(function (event) {
+    $('.lsb-preview').click(function (event) {
       event.preventDefault();
       // Get all images to set.
       imageCollection.getImagesInSet($(this));

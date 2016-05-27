@@ -75,8 +75,9 @@ section {
   display: block;
   float: left;
   width: 25%;
+  padding: 2px;
   border: 2px solid white, 5px solid red; }
-  /* line 85, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  /* line 86, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   .lsb-preview img {
     width: 100%;
     height: auto;
