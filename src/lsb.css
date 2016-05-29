@@ -96,7 +96,7 @@
   /* line 114, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb.scss */
   .lightspeed-box .lsb-image-title {
     position: absolute;
-    bottom: 8px;
+    bottom: 20px;
     right: 50%;
     padding: 5px 10px;
     transform: translateX(50%);
@@ -116,7 +116,7 @@
   /* line 137, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/src/lsb.scss */
   .lightspeed-box .lsb-image-count {
     position: absolute;
-    top: 12px;
+    top: 22px;
     right: 50%;
     transform: translateX(50%);
     z-index: 2;

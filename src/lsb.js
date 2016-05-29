@@ -11,6 +11,7 @@
     var defaultSettings = {
       showImageTitle: true,
       showImageCount: true,
+      showDownloadButton: true,
       autoPlayback: false,
       playbackTiming: 5000,
       locale: {
@@ -22,6 +23,7 @@
         zIndex: 30
       }
     };
+    
     /**
      * Settings of the plugin.
      */
@@ -31,42 +33,52 @@
      * Lightbox element.
      */
     var $lsb;
+    
     /**
      * Wait cursor.
      */
     var $spinner;
+    
     /**
      * Image reference in lightbox.
      */
     var $lsbImage;
+    
     /**
      * Image title from alt tag.
      */
     var $lsbTitle;
+    
     /**
      * Image count
      */
     var $lsbCount;
+    
     /**
      * No image found message.
      */
     var $noImageFound;
+    
     /**
      * Next image button.
      */
     var $next;
+    
     /**
      * Previous image button.
      */
     var $prev;
+    
     /**
      * Close button.
      */
     var $close;
+    
     /**
      * Image download button.
      */
     var $download;
+    
     /**
      * Used for transition effect between slides.
      */
@@ -315,6 +327,7 @@
     function switchOrCloseImage(event) {
       if (typeof event !== 'undefined') {
         event.stopPropagation();
+        // This means user used any of controls, so autoPlayback should be disabled.
         settings.autoPlayback = false;
       }
 
@@ -363,7 +376,7 @@
       if (settings.autoPlayback)
         switchOrCloseImage();
 
-      // Autoplayback can be dropped
+      // If lightbox is not closed and playback enabled, set timeout for new slide.
       if (settings.autoPlayback && !lsbClosed) {
         window.setTimeout(playbackGo, settings.playbackTiming);
       }
