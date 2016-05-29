@@ -80,6 +80,11 @@
     var $download;
     
     /**
+    * Autoplay button.
+    */
+    var $autoplay;
+    
+    /**
      * Used for transition effect between slides.
      */
     var transitionTimeout = 400;
@@ -207,7 +212,13 @@
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
         '<h3 class="lsb-image-count" title="Count of images in set and current image number"></h3>' +
+        '<div class="lsb-control-panel">' +
         '<h2 class="lsb-image-title"></h2>' +
+        '<div class="lsb-panel-buttons">' +
+        '<a class="lsb-control lsb-panel-button lsb-autoplay">▸</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-download" download>&#8681;</a>' +
+        '</div>' +
+        '</div>' +
         '<div class="lsb-image-container">' +
         '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, image not found.</div></div>' +
         '<img class="lsb-image lsb-noimage">' +
@@ -236,6 +247,7 @@
       $prev = $lsb.find('.lsb-prev');
       $close = $lsb.find('.lsb-close');
       $download = $lsb.find('.lsb-download');
+      $autoplay = $lsb.find('.lsb-autoplay');
 
       if (!settings.showDownloadButton) {
         $download.css('display', 'none');
@@ -296,6 +308,32 @@
         event.stopPropagation();
         settings.autoPlayback = false;
         switchImage(imageCollection.previousImage());
+      });
+      
+      /**
+      * Autoplay click.
+      */
+      $autoplay.click(function (event) {
+        event.stopPropagation();
+        settings.autoPlayback = !settings.autoPlayback;
+        
+        if (settings.autoPlayback) {
+          $autoplay.text('| |');
+          $autoplay.removeClass('lsb-autoplay');
+          $autoplay.addClass('lsb-autoplay-playing');
+          window.setTimeout(playbackGo, settings.playbackTiming);
+        } else {
+          $autoplay.text('▸');
+          $autoplay.removeClass('lsb-autoplay-playing ');
+          $autoplay.addClass('lsb-autoplay');
+        }
+      });
+      
+      /**
+      * Download button click.
+      */
+      $download.click(function (event) {
+        event.stopPropagation();
       });
 
       /**
