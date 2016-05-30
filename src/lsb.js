@@ -13,14 +13,16 @@
       showImageCount: true,
       showDownloadButton: true,
       autoPlayback: false,
-      playbackTiming: 5000,
+      playbackTiming: 3500,
+      zIndex: 30,
       locale: {
         nextButton: 'Next image',
         prevButton: 'Previous image',
         closeButton: 'Close',
         downloadButton: 'Download image',
         noImageFound: 'Sorry, no image found.',
-        zIndex: 30
+        downloadButton: 'Download image',
+        autoplayButton: 'Enable autoplay',
       }
     };
     
@@ -211,16 +213,15 @@
       $('body').append(
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
-        '<h3 class="lsb-image-count" title="Count of images in set and current image number"></h3>' +
+        '<h2 class="lsb-header"><span class="lsb-image-count"></span><span class="lsb-image-title"></span></h2>' +
         '<div class="lsb-control-panel">' +
-        '<h2 class="lsb-image-title"></h2>' +
         '<div class="lsb-panel-buttons">' +
-        '<a class="lsb-control lsb-panel-button lsb-autoplay">▸</a>' +
-        '<a class="lsb-control lsb-panel-button lsb-download" download>&#8681;</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Turn on autoplay">►</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">&#8681;</a>' +
         '</div>' +
         '</div>' +
         '<div class="lsb-image-container">' +
-        '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, image not found.</div></div>' +
+        '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, no image found.</div></div>' +
         '<img class="lsb-image lsb-noimage">' +
         '</div>' +
         '<div class="waitingicon">' +
@@ -257,6 +258,7 @@
       $next.attr('title', settings.locale.nextButton);
       $prev.attr('title', settings.locale.prevButton);
       $close.attr('title', settings.locale.closeButton);
+      $download.attr('title', settings.locale.downloadButton);
       $noImageFound.find('.no-found-msg').text(settings.locale.noImageFound);
 
 
@@ -323,7 +325,7 @@
           $autoplay.addClass('lsb-autoplay-playing');
           window.setTimeout(playbackGo, settings.playbackTiming);
         } else {
-          $autoplay.text('▸');
+          $autoplay.text('►');
           $autoplay.removeClass('lsb-autoplay-playing ');
           $autoplay.addClass('lsb-autoplay');
         }
@@ -350,6 +352,7 @@
        * Click on empty space of lightbox.
        */
       $lsb.click(function (event) {
+        settings.autoPlayback = false;
         closeLightbox();
       });
 
