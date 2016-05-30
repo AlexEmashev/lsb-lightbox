@@ -13,7 +13,6 @@
     $(window).load(function() {
       $.fn.lightspeedBox();
     });
-
   </script>
 </head>
 
@@ -21,6 +20,20 @@
   <header>
     <h1>LightSpeedBox</h1>
     <h2>Lightbox plugin for jQuery</h2>
+    <div class="show-reel">
+      <a href="img/summer_days.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/summer_days_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/zhenya_from_everlasting_summer.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/zhenya_from_everlasting_summer_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/little_red_riding_hood.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/little_red_riding_hood_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <a href="img/tiny_vacation.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/tiny_vacation_prev.jpg" alt="A cat and a baloon">
+          </a>
+    </div>
   </header>
 
 
@@ -29,12 +42,13 @@
       <div class="default-block">
         <div class="content">
           <h2>About</h2>
-          <p>LightSpeedBox is a jQuery plugin for organization of a fancy preview box for images (also usually called a lightbox).</p>
+          <p>LightSpeedBox is a jQuery plugin for organization of a fancy image preview box (also usually called a lightbox).</p>
 
           <h3>Key features:</h3>
           <ul>
-            <li>Show the lightbox by click on a thumbnail</li>
-            <li>Support displaying individual images as well as switching through a set</li>
+            <li>Click thumbnail to show lightbox</li>
+            <li>Individual image preview as well as gallery</li>
+            <li>Slideshow (auto playback)</li>
             <li>Controls: next, previous image, close button, keyboard, swipe for touch screens</li>
             <li>Smooth transitions and animations</li>
             <li>Localization</li>
@@ -48,9 +62,15 @@
       <div class="default-block">
         <div class="content">
           <h2>Individual image preview</h2>
-          <p>To preview a single image with LSB lightbox, use class '.lsb-preview' on that image. And don't forget to activate a plugin in JavaScript code.</p>
+          <p>To preview a single image with LSB lightbox, use class <strong>'.lsb-preview'</strong> 
+          on <strong>&lt;a&gt;</strong> tag of an image. And don't forget to activate a plugin in JavaScript code.</p>
           <div class="code">
-            // Example of code
+           &lt;script&gt;<br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.lightspeedBox();<br/>&nbsp;&nbsp;});<br/>&lt;/script&gt;
+           <br/>
+           <br/>
+            &lt;a&nbsp;href=&quot;img/img01_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&quot;&gt;<br/>
+            &nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img01_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&quot;&gt;<br/>
+            &lt;/a&gt;
           </div>
         </div>
       </div>
@@ -73,9 +93,11 @@
       <div class="default-block">
         <div class="content">
           <h2>Lightbox for Gallery</h2>
-          <p>This way you can use lightbox plugin to preview images in gallery.</p>
+          <p>To let lightbox go through image gallery (or group) just add data attribute <strong>'data-lsb-group'</strong> 
+          with appropriate value to each preview in group.</p>
+          <p>You can use as many groups as you need on a single page as well as mixing them with a single image.</p>
           <div class="code">
-            // Example of code
+&lt;script&gt;<br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.lightspeedBox();<br/>&nbsp;&nbsp;});<br/>&lt;/script&gt;&nbsp;<br/><br/>&lt;a&nbsp;href=&quot;img/img01_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&quot;&nbsp;data-lsb-group=&quot;gallery1&quot;&gt;<br/>&nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img01_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&quot;&gt;<br/>&lt;/a&gt;<br/>&lt;a&nbsp;href=&quot;img/img02_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&nbsp;&amp;quot2&amp;quot&quot;&nbsp;data-lsb-group=&quot;gallery1&quot;&gt;<br/>&nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img02_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&nbsp;&amp;quot3&amp;quot&quot;&gt;<br/>&lt;/a&gt;<br/>&lt;a&nbsp;href=&quot;img/img03_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&quot;&nbsp;data-lsb-group=&quot;gallery1&quot;&gt;<br/>&nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img03_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&quot;&gt;<br/>&lt;/a&gt;
           </div>
         </div>
       </div>

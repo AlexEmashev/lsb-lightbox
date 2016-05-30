@@ -1,7 +1,7 @@
 /* line 9, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 * {
   box-sizing: border-box;
-  font-family: sans-serif; }
+  font-family: "Trebuchet MS", Helvetica, sans-serif; }
 
 /* line 15, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 body {
@@ -30,54 +30,77 @@ header {
   background: #64B3A5;
   display: block;
   margin: 0;
-  padding: 2em;
-  color: #F7F7F7; }
+  color: #F7F7F7;
+  overflow: hidden; }
   /* line 40, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   header h1 {
+    padding-top: 20px;
     color: #F7F7F7; }
-  /* line 43, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  /* line 44, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   header h2 {
     margin: 0;
     font-size: 14px;
-    color: #F7F7F7; }
+    color: #F7F7F7;
+    padding-bottom: 19px; }
 
-/* line 49, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+/* line 51, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 section {
   margin: 0;
   padding-top: 1em;
   padding-bottom: 1em;
   background: #F7F7F7; }
 
-/* line 56, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+/* line 58, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 .content {
   max-width: 680px;
   margin: 0 auto;
   overflow: hidden;
-  padding-bottom: 1em; }
+  padding-bottom: 10px;
+  padding-top: 10px; }
 
-/* line 63, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+/* line 66, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 .default-block {
   width: 100%; }
 
-/* line 67, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+/* line 70, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 .accent-block {
   width: 100%;
   background: #7AA6B7;
   color: #ffffff; }
 
 /* line 76, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
-.code {
-  background: #f7f4e2;
-  margin-bottom: 1em; }
+.show-reel {
+  text-align: center;
+  margin-bottom: 8px; }
+  /* line 79, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  .show-reel .lsb-preview {
+    display: inline-block;
+    float: none;
+    width: 95px; }
 
-/* line 81, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+/* line 89, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+.code {
+  background: #F7F4E6;
+  margin-bottom: 1em;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 11px;
+  color: #4B756E;
+  padding: 7px;
+  line-height: 16px; }
+
+/* line 99, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
 .lsb-preview {
   display: block;
   float: left;
   width: 25%;
-  padding: 2px;
-  border: 2px solid white, 5px solid red; }
-  /* line 86, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  background-color: #fff; }
+  /* line 106, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  .lsb-preview:hover img {
+    opacity: .85; }
+  /* line 111, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
+  .lsb-preview:active img {
+    opacity: .7; }
+  /* line 116, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   .lsb-preview img {
     width: 100%;
     height: auto;

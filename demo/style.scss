@@ -4,11 +4,11 @@ $bg-default-block-color: #f4f4f4;
 $bg-accent-block-color: #7AA6B7;
 $text-accent-block-color: #ffffff;
 $bg-showcase-color: #999;
-$bg-code-color: #f7f4e2;
+$bg-code-color: #F7F4E6;
 
 * {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 html,
 body {}
@@ -35,15 +35,17 @@ header {
   background: $bg-dark-color;
   display: block;
   margin: 0;
-  padding: 2em;
   color: $bg-color;
+  overflow: hidden;
   h1 {
+    padding-top: 20px;
     color: $bg-color;
   }
   h2 {
     margin: 0;
     font-size: 14px;
     color: $bg-color;
+    padding-bottom: 19px;
   }
 }
 section {
@@ -57,7 +59,8 @@ section {
   max-width: 680px;
   margin: 0 auto;
   overflow: hidden;
-  padding-bottom: 1em;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .default-block {
@@ -70,25 +73,49 @@ section {
   color: $text-accent-block-color
 }
 
+.show-reel {
+  text-align: center;
+  margin-bottom: 8px;
+  .lsb-preview {
+    display: inline-block;
+    float: none;
+    width: 95px;
+  }
+}
+
 .showcase {
 }
 
 .code {
   background: $bg-code-color;
   margin-bottom: 1em;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 11px;
+  color: #4B756E;
+  padding: 7px;
+  line-height: 16px
 }
 
 .lsb-preview {
   display: block;
   float: left;
   width: 25%;
-  padding: 2px;
+  background-color: #fff;
+  
+  &:hover {
+    img {
+      opacity: .85;
+    }  
+  }
+  &:active {
+    img {
+      opacity: .7;
+    }
+  }
+  
   img {
     width: 100%;
     height: auto;
     vertical-align: bottom; // Image aligns according baseline.
   }
-  border: 2px solid white, 
-    5px solid red;
-  
 }
