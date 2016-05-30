@@ -73,7 +73,6 @@ $lsbZindex: 30;
     min-width: 0;
     min-height: 0;
     margin: auto;
-    //box-shadow: 0 0 15px #000000;
     transition: all .95s cubic-bezier(0.12, 0.58, 0.26, 0.99);
     user-select: none;
     object-fit: scale-down; // Fix scale issues in Firefox
@@ -117,7 +116,6 @@ $lsbZindex: 30;
     right: 50%;
     transform: translateX(50%);
     z-index: 2;
-    padding: 2px 7px;
     margin-bottom: 20px;
     background: rgba(0, 0, 0, .64);
     border-radius: 3px;
@@ -136,6 +134,7 @@ $lsbZindex: 30;
     cursor: pointer;
     width: 30px;
     height: 26px;
+    margin: 2px 5px;
     
     &:not(:last-child) {
       margin-right: 10px;
@@ -143,9 +142,6 @@ $lsbZindex: 30;
   }
   
   .lsb-autoplay {
-//    line-height: 30px;
-//    font-size: 50px;
-//    vertical-align: bottom;
   }
   
   .lsb-download {

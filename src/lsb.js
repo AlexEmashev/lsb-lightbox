@@ -12,6 +12,7 @@
       showImageTitle: true,
       showImageCount: true,
       showDownloadButton: true,
+      showAutoPlayButton: true,
       autoPlayback: false,
       playbackTiming: 3500,
       zIndex: 30,
@@ -155,9 +156,12 @@
         if (this.images.length === 1) {
           $prev.css('visibility', 'hidden');
           $next.css('visibility', 'hidden');
+          $autoplay.hide();
         } else {
           $prev.css('visibility', 'visible');
           $next.css('visibility', 'visible');
+          if(settings.showAutoPlayButton)
+            $autoplay.show();
         }
       },
       /**
@@ -215,10 +219,8 @@
         '<div class="lsb-content">' +
         '<h2 class="lsb-header"><span class="lsb-image-count"></span><span class="lsb-image-title"></span></h2>' +
         '<div class="lsb-control-panel">' +
-        '<div class="lsb-panel-buttons">' +
         '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Turn on autoplay">►</a>' +
         '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">&#8681;</a>' +
-        '</div>' +
         '</div>' +
         '<div class="lsb-image-container">' +
         '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, no image found.</div></div>' +
@@ -251,7 +253,11 @@
       $autoplay = $lsb.find('.lsb-autoplay');
 
       if (!settings.showDownloadButton) {
-        $download.css('display', 'none');
+        $download.hide();
+      }
+      
+      if (!settings.showAutoPlayButton) {
+        $autoplay.hide();
       }
 
       // Set l10n.
