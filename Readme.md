@@ -4,7 +4,7 @@
 
 LightSpeedBox is a jQuery plugin that represents a fancy image preview box (also called a lightbox).
 
-Please see [demo page here](http://).
+Please see [demo page here](https://lsb-lightbox.AlexEmashev.github.io/).
 
 ##Features
 
