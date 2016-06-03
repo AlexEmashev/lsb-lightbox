@@ -11,64 +11,90 @@
     var defaultSettings = {
       showImageTitle: true,
       showImageCount: true,
+      showDownloadButton: true,
+      showAutoPlayButton: true,
+      autoPlayback: false,
+      playbackTiming: 3500,
+      zIndex: 30,
       locale: {
         nextButton: 'Next image',
         prevButton: 'Previous image',
         closeButton: 'Close',
         downloadButton: 'Download image',
         noImageFound: 'Sorry, no image found.',
-        zIndex: 30
+        autoplayButton: 'Enable autoplay'
       }
     };
+    
     /**
-    * Settings of the plugin.
-    */
+     * Settings of the plugin.
+     */
     var settings = $.extend(defaultSettings, options);
 
     /**
-    * Lightbox element.
-    */
+     * Lightbox element.
+     */
     var $lsb;
+    
     /**
-    * Wait cursor.
-    */
+     * Wait cursor.
+     */
     var $spinner;
+    
     /**
-    * Image reference in lightbox.
-    */
+     * Image reference in lightbox.
+     */
     var $lsbImage;
+    
     /**
-    * Image title from alt tag.
-    */
+     * Image title from alt tag.
+     */
     var $lsbTitle;
+    
     /**
-    * Image count
-    */
+     * Image count
+     */
     var $lsbCount;
+    
     /**
-    * No image found message.
-    */
+     * No image found message.
+     */
     var $noImageFound;
+    
     /**
-    * Next image button.
-    */
+     * Next image button.
+     */
     var $next;
+    
     /**
-    * Previous image button.
-    */
+     * Previous image button.
+     */
     var $prev;
+    
     /**
-    * Close button.
-    */
+     * Close button.
+     */
     var $close;
+    
     /**
-    * Image download button.
-    */
+     * Image download button.
+     */
     var $download;
+    
     /**
-    * Used for transition effect between slides.
+    * Autoplay button.
     */
+    var $autoplay;
+    
+    /**
+     * Used for transition effect between slides.
+     */
     var transitionTimeout = 400;
+    
+    /**
+    * Flag that lsb is closed
+    */
+    var lsbClosed = true;
 
     /**
      * Collection of images to show in lightbox.
@@ -92,13 +118,13 @@
         // Reset previous images.
         var collectedImages = [];
         var curImgIndex = 0;
-        
+
         // Get selected image props
         var selectedImgHref = $selectedImg.attr('href');
         var selectedImgAlt = $selectedImg.find('img').attr('alt');
         // Check if element is in group.
         var group = $selectedImg.attr('data-lsb-group');
-        
+
         // Get all images in group
         if (group) {
           previews = $('.lsb-preview[data-lsb-group="' + group + '"]');
@@ -107,14 +133,20 @@
             var elementHref = element.getAttribute('href');
             var alt = $(element).find('img').attr('alt');
 
-            collectedImages.push({href: elementHref, alt: alt});
+            collectedImages.push({
+              href: elementHref,
+              alt: alt
+            });
             // Calculate image of the collection that should be displayed (the one user clicked).
             if (elementHref === selectedImgHref) {
               curImgIndex = i;
             }
           });
         } else { // If it is a single image
-          collectedImages.push({href: selectedImgHref, alt: selectedImgAlt});
+          collectedImages.push({
+            href: selectedImgHref,
+            alt: selectedImgAlt
+          });
         }
 
         this.images = collectedImages;
@@ -123,9 +155,12 @@
         if (this.images.length === 1) {
           $prev.css('visibility', 'hidden');
           $next.css('visibility', 'hidden');
+          $autoplay.hide();
         } else {
           $prev.css('visibility', 'visible');
           $next.css('visibility', 'visible');
+          if(settings.showAutoPlayButton)
+            $autoplay.show();
         }
       },
       /**
@@ -140,7 +175,7 @@
         if (this.current > this.images.length - 1) {
           this.current = 0;
         }
-        
+
         return this.images[this.current];
       },
       /**
@@ -181,10 +216,13 @@
       $('body').append(
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
-        '<h3 class="lsb-image-count" title="Count of images in set and current image number"></h3>' +
-        '<h2 class="lsb-image-title"></h2>' +
-        '<div class="lsb-no-image-found"></div>' +
+        '<header class="lsb-header"><div class="lsb-image-count"></div><div class="lsb-image-title"></div></header>' +
+        '<div class="lsb-control-panel">' +
+        '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Slideshow">►</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">&#8681;</a>' +
+        '</div>' +
         '<div class="lsb-image-container">' +
+        '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, no image found.</div></div>' +
         '<img class="lsb-image lsb-noimage">' +
         '</div>' +
         '<div class="waitingicon">' +
@@ -211,19 +249,25 @@
       $prev = $lsb.find('.lsb-prev');
       $close = $lsb.find('.lsb-close');
       $download = $lsb.find('.lsb-download');
-      
+      $autoplay = $lsb.find('.lsb-autoplay');
+
       if (!settings.showDownloadButton) {
-        $download.css('display', 'none');
+        $download.hide();
       }
       
+      if (!settings.showAutoPlayButton) {
+        $autoplay.hide();
+      }
+
       // Set l10n.
       $next.attr('title', settings.locale.nextButton);
       $prev.attr('title', settings.locale.prevButton);
       $close.attr('title', settings.locale.closeButton);
-      $noImageFound.text(settings.locale.noImageFound);
-      
-      
-      
+      $download.attr('title', settings.locale.downloadButton);
+      $noImageFound.find('.no-found-msg').text(settings.locale.noImageFound);
+
+
+
       ///// Add event handlers for elements. //////
 
       // Add swipe detection plugin.
@@ -236,10 +280,10 @@
           }
         }
       });
-      
+
       /**
-      * Keyboard support.
-      */
+       * Keyboard support.
+       */
       $(document).on('keyup.lightspeed-box', function (event) {
         if ($lsb.hasClass('lsb-active')) {
           // Right button press. Image switching make sence only if there are more than one image in collection.
@@ -260,6 +304,7 @@
        */
       $next.click(function (event) {
         event.stopPropagation();
+        settings.autoPlayback = false;
         switchImage(imageCollection.nextImage());
       });
 
@@ -268,50 +313,98 @@
        */
       $prev.click(function (event) {
         event.stopPropagation();
+        settings.autoPlayback = false;
         switchImage(imageCollection.previousImage());
       });
-
-      $lsbImage.click(function (event) {
+      
+      /**
+      * Autoplay click.
+      */
+      $autoplay.click(function (event) {
         event.stopPropagation();
-        if (imageCollection.images.length > 1) {
-          switchImage(imageCollection.nextImage());
+        settings.autoPlayback = !settings.autoPlayback;
+        
+        if (settings.autoPlayback) {
+          $autoplay.text('| |');
+          $autoplay.removeClass('lsb-autoplay');
+          $autoplay.addClass('lsb-autoplay-playing');
+          window.setTimeout(playbackGo, settings.playbackTiming);
         } else {
-          closeLightbox();
+          $autoplay.text('►');
+          $autoplay.removeClass('lsb-autoplay-playing ');
+          $autoplay.addClass('lsb-autoplay');
         }
       });
+      
+      /**
+      * Download button click.
+      */
+      $download.click(function (event) {
+        event.stopPropagation();
+      });
+
+      /**
+       * Click on element, that is displayed when no image found.
+       */
+      $noImageFound.click(switchOrCloseImage);
+
+      /**
+       * Click on image.
+       */
+      $lsbImage.click(switchOrCloseImage);
 
       /**
        * Click on empty space of lightbox.
        */
       $lsb.click(function (event) {
+        settings.autoPlayback = false;
         closeLightbox();
       });
-      
+
       /**
-      * Allow user to click or select image title.
-      */
+       * Allow user to click or select image title.
+       */
       $lsbTitle.click(function (event) {
         event.stopPropagation();
       });
-      
+
     })();
-    
+
+    function switchOrCloseImage(event) {
+      if (typeof event !== 'undefined') {
+        event.stopPropagation();
+        // This means user used any of controls, so autoPlayback should be disabled.
+        settings.autoPlayback = false;
+      }
+
+      if (imageCollection.images.length > 1) {
+        switchImage(imageCollection.nextImage());
+      } else {
+        closeLightbox();
+      }
+    }
+
     /**
      * Click on any of the previews.
      */
-    $('.lightspeed-preview').click(function (event) {
+    $('.lsb-preview').click(function (event) {
       event.preventDefault();
       // Get all images to set.
       imageCollection.getImagesInSet($(this));
 
       showLightbox();
       switchImage(imageCollection.images[imageCollection.current]);
+
+      if (settings.autoPlayback) {
+        window.setTimeout(playbackGo, settings.playbackTiming);
+      }
     });
 
     /**
      * Shows lightbox.
      */
     function showLightbox() {
+      lsbClosed = false;
       $lsbCount.text('');
       $lsb.addClass('lsb-active');
     }
@@ -322,6 +415,17 @@
       $lsb.removeClass('lsb-active');
       $lsbImage.removeClass('lsb-image-loaded');
       $lsbImage.addClass('lsb-noimage');
+      lsbClosed = true;
+    }
+
+    function playbackGo() {
+      if (settings.autoPlayback)
+        switchOrCloseImage();
+
+      // If lightbox is not closed and playback enabled, set timeout for new slide.
+      if (settings.autoPlayback && !lsbClosed) {
+        window.setTimeout(playbackGo, settings.playbackTiming);
+      }
     }
 
     /**
@@ -342,29 +446,29 @@
 
 
     /**
-    * Loads full size image.
-    */
+     * Loads full size image.
+     */
     function loadImage(imageObj) {
       $spinner.show();
       // Show current image number.
       if (settings.showImageCount && imageCollection.images.length > 1) {
         $lsbCount.text((imageCollection.current + 1) + '/' + imageCollection.images.length);
       } else {
-          $lsbCount.text('');
+        $lsbCount.text('');
       }
-      
+
       //Load image.
       var $img = $('<img />').attr('src', imageObj.href).on('load', function () {
-          // Set image.
-          $lsbImage.attr('src', $img.attr('src'));
-          if(settings.showImageTitle) {
-            // Set image title.
-            $lsbTitle.text(imageObj.alt);
-          }
-          // Set download button reference
-          $download.attr('href', imageObj.href);
-          displayImage();
-      }).on('error', function(error) {
+        // Set image.
+        $lsbImage.attr('src', $img.attr('src'));
+        if (settings.showImageTitle) {
+          // Set image title.
+          $lsbTitle.text(imageObj.alt);
+        }
+        // Set download button reference
+        $download.attr('href', imageObj.href);
+        displayImage();
+      }).on('error', function (error) {
         $spinner.hide();
         // Show at least a title, so user can refer it to define a problem.
         $lsbTitle.text(imageObj.alt);
@@ -372,7 +476,7 @@
         console.log('[LSB Error]:', error);
       });
     }
-    
+
     /**
      * Shows image when animation has finished.
      */
@@ -405,7 +509,7 @@
       // Not on mouse events too.
       useOnlyTouch: true
     };
-    
+
     // Initializer
     (function init() {
       options = $.extend(defaultSettings, options);
@@ -414,27 +518,27 @@
       $('html').on('mouseup touchend', swipeEnd);
       $('html').on('mousemove touchmove', swiping);
     })();
-    
+
     function swipeStart(event) {
       if (options.useOnlyTouch && !event.originalEvent.touches)
         return;
-      
+
       if (event.originalEvent.touches)
         event = event.originalEvent.touches[0];
-      
+
       if (swipeState === 0) {
         swipeState = 1;
         startX = event.clientX;
         startY = event.clientY;
       }
     }
-    
+
     function swipeEnd(event) {
       if (swipeState === 2) {
         swipeState = 0;
-        
+
         if (Math.abs(pixelOffsetX) > Math.abs(pixelOffsetY) &&
-           Math.abs(pixelOffsetX) > options.swipeThreshold) { // Horizontal Swipe
+          Math.abs(pixelOffsetX) > options.swipeThreshold) { // Horizontal Swipe
           if (pixelOffsetX < 0) {
             swipeTarget.trigger($.Event('swipeLeft.lsb'));
           } else {
@@ -449,28 +553,28 @@
         }
       }
     }
-    
+
     function swiping(event) {
       // If swipe don't occuring, do nothing.
-      if (swipeState !== 1) 
+      if (swipeState !== 1)
         return;
-      
-      
+
+
       if (event.originalEvent.touches) {
         event = event.originalEvent.touches[0];
       }
-      
+
       var swipeOffsetX = event.clientX - startX;
       var swipeOffsetY = event.clientY - startY;
-      
+
       if ((Math.abs(swipeOffsetX) > options.swipeThreshold) ||
-          (Math.abs(swipeOffsetY) > options.swipeThreshold)) {
+        (Math.abs(swipeOffsetY) > options.swipeThreshold)) {
         swipeState = 2;
         pixelOffsetX = swipeOffsetX;
         pixelOffsetY = swipeOffsetY;
       }
     }
-    
+
     return swipeTarget; // Return element available for chaining.
   }
 }(jQuery));

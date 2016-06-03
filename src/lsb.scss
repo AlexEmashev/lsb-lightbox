@@ -59,9 +59,9 @@ $lsbZindex: 30;
     right: 0;
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     
   }
   
@@ -73,7 +73,6 @@ $lsbZindex: 30;
     min-width: 0;
     min-height: 0;
     margin: auto;
-    //box-shadow: 0 0 15px #000000;
     transition: all .95s cubic-bezier(0.12, 0.58, 0.26, 0.99);
     user-select: none;
     object-fit: scale-down; // Fix scale issues in Firefox
@@ -81,6 +80,10 @@ $lsbZindex: 30;
     &.lsb-image-loaded {
       max-height: 100%;
       max-width: 100%;
+      min-height: 1px; // Fix scaling issues in IE
+      //box-shadow: 0 2px 25px rgba(0, 0, 0, 0.87); // Cause some troubles.
+      border: 3px solid rgba(0, 0, 0, 0.18);
+      border-radius: 3px;
     }
   }
   
@@ -90,22 +93,92 @@ $lsbZindex: 30;
     right: 0;
     top: 0;
     bottom: 0;
-    margin: auto;
-    height: 100px;
-    overflow: visible;
     display: none;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+    overflow: visible;
+    color: $lsbUIColor;
+    text-align: center;
+    cursor: pointer;
+    
+    .no-found-msg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: translateY(50%);
+      margin: 0 auto;
+    }
+  }
+  
+  .lsb-control-panel {
+    position: absolute;
+    bottom: 5px;
+    right: 50%;
+    transform: translateX(50%);
+    z-index: 2;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, .64);
+    border-radius: 3px;
+    opacity: .5;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+  
+  .lsb-panel-button {
+    font-size: 22px;
+    display: inline-block;
+    color: $lsbUIColor;
+    text-align: center;
+    cursor: pointer;
+    width: 30px;
+    height: 28px;
+    margin: 2px 5px;
+    
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+  
+  .lsb-autoplay {
+    
+  }
+  
+  .lsb-download {
+    text-decoration: underline;
+  }
+  
+  .lsb-autoplay-playing {
+    line-height: 23px;
+    font-size: 18px;
+    word-spacing: -7px; // To make the text look more like pause button
+    font-weight: bolder;
+    vertical-align: bottom;
+  }
+  
+  .lsb-header {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: $lsbZindex + 2;    
+    margin: 0;
+    padding: 0;
+    display: block;
+    background: transparent;
   }
   
   .lsb-image-title {
     &:not(:empty) {
       opacity: 1;
     }
-    position: absolute;
-    bottom: 8px;
-    right: 50%;
+    display: block;
     padding: 5px 10px;
-    transform: translateX(50%);
-    z-index: 2;
     color: $lsbUIColor;
     font-size: 14px;
     text-shadow: 0 1px 4px #000000;
@@ -120,14 +193,13 @@ $lsbZindex: 30;
   }
   
   .lsb-image-count {
-    position: absolute;
-    top: 12px;
-    right: 50%;
-    transform: translateX(50%);
-    z-index: 2;
+    display: block;
+    margin-right: 5px;
+    font-weight: 500;
     color: $lsbUIColor;
-    font-size: 12px;
+    font-size: 11px;
     text-shadow: 0 1px 4px #000000;
+    background: transparent;
   }
   
   .lsb-control {
@@ -145,6 +217,7 @@ $lsbZindex: 30;
   .lsb-control-text {
     font-family:  Monaco, monospace;
     font-size: 45px;
+    font-weight: bold;
   }
   
   .lsb-prev, .lsb-next {
@@ -181,8 +254,10 @@ $lsbZindex: 30;
     z-index: 3;
     text-align: right;
     .lsb-control-text {
-      font-size: 30px;
+      display: inline-block;
+      margin-top: 17px;
       margin-right: 30px;
+      font-size: 30px;
     }
   }
 }

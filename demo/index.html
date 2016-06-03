@@ -4,82 +4,276 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lightspeed lightbox</title>
-  <link rel="stylesheet" href="../src/style.css">
+  <title>LightSpeedBox lightbox jQuery plugin</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="../src/lsb.css">
-  <script src="../src/jquery-2.2.3.min.js"></script>
+  <script src="jquery-2.2.3.min.js"></script>
   <script src="../src/lsb.js"></script>
   <script>
     $(window).load(function() {
       $.fn.lightspeedBox();
     });
+
   </script>
 </head>
 
 <body>
   <header>
-    <h1>Image gallery</h1>
+    <h1>LightSpeedBox</h1>
+    <h2>Lightbox plugin for jQuery</h2>
+    <div class="show-reel">
+      <a href="img/summer_days.jpg" class="lsb-preview" data-lsb-group="header">
+        <img src="img/summer_days_prev.jpg" alt="Summer days">
+      </a>
+      <a href="img/lucy_wilde.jpg" class="lsb-preview" data-lsb-group="header">
+        <img src="img/lucy_wilde_prev.jpg" alt="Lucy Wilde from &quot;Despicable Me 2&quot;">
+      </a>
+      <a href="img/6_children_game_concepts.jpg" class="lsb-preview" data-lsb-group="header">
+        <img src="img/6_children_game_concepts_prev.jpg" alt="Children Game Concept">
+      </a>
+      <a href="img/tiny_vacation.jpg" class="lsb-preview" data-lsb-group="header">
+        <img src="img/tiny_vacation_prev.jpg" alt="Tiny Vacation">
+      </a>
+    </div>
   </header>
+
+
   <article>
-    <section id="gallery">
-      <figure class="item">
+    <section class="info">
+      <div class="default-block">
+        <div class="content">
+          <h2>About</h2>
+          <p>LightSpeedBox is a jQuery plugin that represents a fancy image preview box (also called a lightbox).</p>
+          <p>Project's <a href="">Github page</a>.</p>
 
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_31.png" data-lsb-group="group1"><img src="img/01day_1.png" alt="Day 1"></a>
-        <div class="description">
-          This is a sample image
+          <h3>Key features:</h3>
+          <ul>
+            <li>Click thumbnail to show the lightbox</li>
+            <li>Individual image preview as well as gallery</li>
+            <li>Responsive</li>
+            <li>Slideshow (auto playback)</li>
+            <li>Controls: next, previous image, close button, keyboard, swipe for touch screens</li>
+            <li>Smooth transitions and animations</li>
+            <li>Localization</li>
+            <li>Open source</li>
+            <li>Works in webkit browsers, FireFox, IE > 9 (in IE9 plugin is still usable, though layout is not really that great).</li>
+          </ul>
+          
+          <h2>Installation</h2>
+          <h3>Manual Installation</h3>
+          <p>For manual installation just include these two files into your page.</p>
+          <p>
+            <a href="">lsb.js</a>
+            <br/><a href="">lsb.css</a>
+          </p>
+          <h3>Install using Bower</h3>
+          <p>Use following command: <strong>bower install lightspeedbox</strong> or 
+          <strong>bower install lightspeedbox --save</strong> to save to your project as dependency.</p>
         </div>
-      </figure>
+      </div>
+    </section>
 
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_10.png" data-lsb-group="group1"><img src="img/02day_10.png" alt='Another image &quot;day2&quot;' ></a>
-        <div class="description">
-          This is a sample image
-        </div>
-      </figure>
 
-      <figure class="item">
-        <header class="header">Standing girl</header>
-        <a class="lightspeed-preview" href="img/day_11.png" data-lsb-group="group1"><img src="img/03day_11.png" alt="Day 3"></a>
-        <div class="description">
-          Standing Girl
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>Individual image preview</h2>
+          <p>To preview a single image with LSB lightbox, use class <strong>'.lsb-preview'</strong> on <strong>&lt;a&gt;</strong> tag of an image. And don't forget to activate a plugin in JavaScript code.</p>
+          <div class="code">
+            &lt;script&gt;
+            <br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.lightspeedBox();
+            <br/>&nbsp;&nbsp;});
+            <br/>&lt;/script&gt;
+            <br/>
+            <br/> &lt;a&nbsp;href=&quot;img/img01_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&quot;&gt;
+            <br/> &nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img01_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&quot;&gt;
+            <br/> &lt;/a&gt;
+          </div>
         </div>
-      </figure>
+      </div>
+      <div class="accent-block">
+        <div class="content showcase single-image">
+          <p>This is some text, an article if you like. The article that should display individual images like the one below.</p>
+          <a href="img/a_cat_and_a_balloon.jpg" class="lsb-preview single">
+            <img src="img/a_cat_and_a_balloon_prev.jpg" alt="A cat and a baloon">
+          </a>
+          <p>Or check this one too. This image got no particular purpose  other than display the feature.</p>
+          <a href="img/a_survivor.jpg" class="lsb-preview single">
+            <img src="img/a_survivor_prev.jpg" alt="Survivor">
+          </a>
+        </div>
+      </div>
+    </section>
 
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_12.png"><img src="img/04day_12.png" alt="Day 4"></a>
-        <div class="description">
-          This is a sample image
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>Lightbox for Gallery</h2>
+          <p>To let lightbox go through image gallery (or group) just add data attribute <strong>'data-lsb-group'</strong> with appropriate value to each preview in group.</p>
+          <p>You can use as many groups as you need on a single page as well as mixing them with a single image.</p>
+          <div class="code">
+            &lt;script&gt;
+            <br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.lightspeedBox();
+            <br/>&nbsp;&nbsp;});
+            <br/>&lt;/script&gt;&nbsp;
+            <br/>
+            <br/>&lt;a&nbsp;href=&quot;img/img01_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&quot;&nbsp;data-lsb-group=&quot;gallery1&quot;&gt;
+            <br/>&nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img01_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&quot;&gt;
+            <br/>&lt;/a&gt;
+            <br/>&lt;a&nbsp;href=&quot;img/img02_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&nbsp;&amp;quot2&amp;quot&quot;&nbsp;data-lsb-group=&quot;gallery1&quot;&gt;
+            <br/>&nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img02_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&nbsp;&amp;quot3&amp;quot&quot;&gt;
+            <br/>&lt;/a&gt;
+            <br/>&lt;a&nbsp;href=&quot;img/img03_fullsize.jpg&quot;&nbsp;class=&quot;lsb-preview&quot;&nbsp;data-lsb-group=&quot;gallery1&quot;&gt;
+            <br/>&nbsp;&nbsp;&lt;img&nbsp;src=&quot;img/img03_prev.jpg&quot;&nbsp;alt=&quot;Image&nbsp;Title&quot;&gt;
+            <br/>&lt;/a&gt;
+          </div>
         </div>
-      </figure>
-      
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_23.png" data-lsb-group="group2">
-        <img src="img/16day_23.png" alt="Day 4"></a>
-        <div class="description">
-          This is a sample image
+      </div>
+      <div class="accent-block">
+        <div class="content showcase gallery">
+          <a href="img/lang__yie_ar_kung_fu.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/lang__yie_ar_kung_fu_prev.jpg" alt="Lang from &quot;Yie Ar Kung Fu&quot;">
+          </a>
+          <a href="img/cobalt_blades.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/cobalt_blades_prev.jpg" alt="Cobald Blades cursor pack">
+          </a>
+          <a href="img/docs_flow_system_splash_screens.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/docs_flow_system_splash_screens_prev.jpg" alt="Document Flow System Software Splash Screens">
+          </a>
+          <a href="img/zhenya_from_everlasting_summer.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/zhenya_from_everlasting_summer_prev.jpg" alt="Zhenya from &quot;Everlasting Summer&quot;">
+          </a>
+          <a href="img/zootopia_fan_art.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/zootopia_fan_art_prev.jpg" alt="Zootopia fan-art">
+          </a>
+          <a href="img/little_red_riding_hood.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/little_red_riding_hood_prev.jpg" alt="Little Red Riding Hood">
+          </a>
+          <a href="img/everything_s_fine.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/everything_s_fine_dev.jpg" alt="Everything's fine">
+          </a>
+          <a href="img/lucy_wilde.jpg" class="lsb-preview" data-lsb-group="gallery1">
+            <img src="img/lucy_wilde_prev.jpg" alt="Lucy Wilde">
+          </a>
         </div>
-      </figure>
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_24.png" data-lsb-group="group2">
-        <img src="img/17day_24.png" alt="Day 4"></a>
-        <div class="description">
-          This is a sample image
+      </div>
+    </section>
+
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>No image</h2>
+          <p>That's what happens if full size image hasn't found.</p>
         </div>
-      </figure>
-      <figure class="item">
-        <header class="header">Hello world</header>
-        <a class="lightspeed-preview" href="img/day_5.png"><img src="img/21day_5.png" alt="Girl that says Hi!"></a>
-        <div class="description">
-          This is a sample image
+      </div>
+      <div class="accent-block">
+        <div class="content showcase single-image">
+          <a href="img/girly_character_.jpg" class="lsb-preview single">
+            <img src="img/girly_character_prev.jpg" alt="A Girly Character concept">
+          </a>
         </div>
-      </figure>
+      </div>
+    </section>
+
+
+    <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>Settings</h2>
+          <p>Plugin supports settings through a simple JavaScript object passed as a parameter.</p>
+          <div class="settings">
+            <div class="row">
+              <div class="cell name">Name</div>
+              <div class="cell default">Default</div>
+              <div class="cell description">Description</div>
+            </div>
+            <div class="row">
+              <div class="cell name">showImageTitle</div>
+              <div class="cell default">true</div>
+              <div class="cell description">Show image title (from alt attribute).</div>
+            </div>
+            <div class="row">
+              <div class="cell name">showImageCount</div>
+              <div class="cell default">true</div>
+              <div class="cell description">Number of images in group and number of current image (doesn't show up when single image displayed).</div>
+            </div>
+            <div class="row">
+              <div class="cell name">showDownloadButton</div>
+              <div class="cell default">true</div>
+              <div class="cell description">Show download full-size image button.</div>
+            </div>
+            <div class="row">
+              <div class="cell name">showAutoPlayButton</div>
+              <div class="cell default">true</div>
+              <div class="cell description">Slideshow button (doesn't show up when single image displayed).</div>
+            </div>
+            <div class="row">
+              <div class="cell name">autoPlayback</div>
+              <div class="cell default">false</div>
+              <div class="cell description">Slideshow enabled, when lightbox first time open.</div>
+            </div>
+            <div class="row">
+              <div class="cell name">playbackTiming</div>
+              <div class="cell default">3500</div>
+              <div class="cell description">Slideshow delay (msec).</div>
+            </div>
+            <div class="row">
+              <div class="cell name">zIndex</div>
+              <div class="cell default">30</div>
+              <div class="cell description">z-index property of lightbox (bump it higher if it shows up beneath the other elements).</div>
+            </div>
+            <div class="row">
+              <div class="cell name">locale</div>
+              <div class="cell default">
+                { nextButton: 'Next image',
+                <br> prevButton: 'Previous image',
+                <br> closeButton: 'Close',
+                <br> downloadButton: 'Download image',
+                <br> noImageFound: 'Sorry, no image found.',
+                <br> downloadButton: 'Download image',
+                <br> autoplayButton: 'Enable autoplay'
+                <br> }
+
+              </div>
+              <div class="cell description">Localization settings in JavaScript object (see below)</div>
+            </div>
+          </div>
+          
+          <div class="code">
+            // Example of using settings 
+            <br/>&lt;script&gt;
+            <br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.lightspeedBox({
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showDownloadButton:&nbsp;false,
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showAutoPlayButton:&nbsp;false,
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showImageCount:&nbsp;false
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;});
+            <br/>&nbsp;&nbsp;});
+            <br/>&lt;/script&gt;
+          </div>
+        </div>
+      </div>
+    </section>    
+     
+    
+     <section class="example">
+      <div class="default-block">
+        <div class="content">
+          <h2>License</h2>
+          <p>The MIT public license © 2016 <a href="https://github.com/AlexEmashev">Alexander Emashev</a>.</p>
+        </div>
+      </div>
     </section>
   </article>
+  <footer>
+    Images by <a href="http://cgrey.deviantart.com/gallery/">Alexander Emashev</a> distributed under general public license.
+  </footer>
 </body>
 
 </html>
