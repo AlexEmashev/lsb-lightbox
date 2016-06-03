@@ -22,8 +22,7 @@
         closeButton: 'Close',
         downloadButton: 'Download image',
         noImageFound: 'Sorry, no image found.',
-        downloadButton: 'Download image',
-        autoplayButton: 'Enable autoplay',
+        autoplayButton: 'Enable autoplay'
       }
     };
     
@@ -219,7 +218,7 @@
         '<div class="lsb-content">' +
         '<h2 class="lsb-header"><span class="lsb-image-count"></span><span class="lsb-image-title"></span></h2>' +
         '<div class="lsb-control-panel">' +
-        '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Turn on autoplay">►</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Slideshow">►</a>' +
         '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">&#8681;</a>' +
         '</div>' +
         '<div class="lsb-image-container">' +

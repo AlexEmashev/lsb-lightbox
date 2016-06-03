@@ -27,40 +27,76 @@ h6 {
   color: $bg-dark-color;
   margin: 0;
 }
+
 h1 {
   margin: 0;
   font-size: 50px;
 }
+
+h2 {
+  font-size: 2em;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 1.4em;
+  text-align: left;
+  font-weight: 300;
+}
+
 header {
   background: $bg-dark-color;
   display: block;
   margin: 0;
   color: $bg-color;
   overflow: hidden;
+  
   h1 {
-    padding-top: 20px;
+    padding-top: 36px;
     color: $bg-color;
   }
+  
   h2 {
     margin: 0;
     font-size: 14px;
     color: $bg-color;
-    padding-bottom: 19px;
+    padding-bottom: 46px;
   }
 }
+
+a {
+  color: darken($bg-dark-color, 30%);
+  &:link {
+    color: darken($bg-dark-color, 10%);
+  }
+  &:hover {
+    color: lighten($bg-dark-color, 20%);
+  }
+  &:active {
+    color: lighten($bg-dark-color, 30%);
+  }
+//  &:visited {
+//    color: darken($bg-dark-color, 30%);
+//  }
+}
+
 section {
   margin: 0;
-  padding-top: 1em;
+  padding-top: 2em;
   padding-bottom: 1em;
   background: $bg-color;
+}
+
+strong {
+  color: $bg-dark-color;
 }
 
 .content {
   max-width: 680px;
   margin: 0 auto;
   overflow: hidden;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 13px;
+  padding-top: 13px;
 }
 
 .default-block {
@@ -75,41 +111,74 @@ section {
 
 .show-reel {
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
+  word-spacing: -1px;
   .lsb-preview {
     display: inline-block;
     float: none;
-    width: 95px;
+    width: 150px;
+  }
+}
+
+.single-image {
+  .lsb-preview.single {
+    display: block;
+    width: 240px;
+    margin: 0 auto;
   }
 }
 
 .showcase {
 }
 
+.gallery {
+  .lsb-preview {
+    float: left;
+    width: 25%;
+    padding: 2px;
+  }
+}
+
 .code {
+  position: relative;
   background: $bg-code-color;
   margin-bottom: 1em;
-  font-family: "Lucida Console", Monaco, monospace;
+  border: 1px solid #ecebe2;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
   font-size: 11px;
-  color: #4B756E;
-  padding: 7px;
-  line-height: 16px
+  color: #24793B;
+  padding: 10px;
+  line-height: 16px;
+  
+  &::after {
+    content: 'Code';
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    color: #B3B1A4;
+    }
 }
 
 .lsb-preview {
   display: block;
-  float: left;
-  width: 25%;
-  background-color: #fff;
+  overflow: hidden;
+  
+  img {
+    transition: all .2s ease-in-out;
+  }
   
   &:hover {
     img {
-      opacity: .85;
+      opacity: .9;
+      box-shadow: 0 1px 10px #000;
+      transform: scale(1.3);
     }  
   }
   &:active {
     img {
       opacity: .7;
+      transform: scale(1.2);
     }
   }
   
@@ -117,5 +186,37 @@ section {
     width: 100%;
     height: auto;
     vertical-align: bottom; // Image aligns according baseline.
+  }
+}
+
+.settings {
+  display: table;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 2em;
+  
+  .row {
+    display: table-row;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+  .cell {
+    display: table-cell;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    vertical-align: top;
+  }
+  .name {
+    padding-right: 5px;
+    padding-bottom: 1px;
+    padding-left: 1px;
+  }
+  .default {
+    padding-right: 3px;
+  }
+  .description {
   }
 }
