@@ -137,7 +137,7 @@ $lsbZindex: 30;
     text-align: center;
     cursor: pointer;
     width: 30px;
-    height: 26px;
+    height: 28px;
     margin: 2px 5px;
     
     &:not(:last-child) {
@@ -163,19 +163,21 @@ $lsbZindex: 30;
   
   .lsb-header {
     position: absolute;
-    top: 20px;
+    top: 9px;
     left: 50%;
     transform: translateX(-50%);
     z-index: $lsbZindex + 2;    
     margin: 0;
     padding: 0;
+    display: block;
+    background: transparent;
   }
   
   .lsb-image-title {
     &:not(:empty) {
       opacity: 1;
     }
-    display: inline-block;
+    display: block;
     padding: 5px 10px;
     color: $lsbUIColor;
     font-size: 14px;
@@ -191,12 +193,13 @@ $lsbZindex: 30;
   }
   
   .lsb-image-count {
-    display: inline-block;
+    display: block;
     margin-right: 5px;
     font-weight: 500;
     color: $lsbUIColor;
-    font-size: 12px;
+    font-size: 11px;
     text-shadow: 0 1px 4px #000000;
+    background: transparent;
   }
   
   .lsb-control {

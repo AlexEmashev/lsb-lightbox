@@ -71,7 +71,7 @@ The plugin accepts following parameters:
 |showAutoPlayButton          |true      |Slideshow button (doesn't show up when single image displayed).|
 |autoPlayback   |false      |Slideshow enabled, when lightbox first time open.|
 |playbackTiming   |3500      |Slideshow delay (msec).|
-|zIndex           |30      |z-index property of lightbox (bump it higher if it shows up beneath other elements).|
+|zIndex           |30      |z-index property of lightbox (bump it higher if it shows up beneath the other elements).|
 |locale           |see below     |Localization object for element titles.|
 
 Locale object looks like this:

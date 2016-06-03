@@ -5,11 +5,24 @@ $bg-accent-block-color: #7AA6B7;
 $text-accent-block-color: #ffffff;
 $bg-showcase-color: #999;
 $bg-code-color: #F7F4E6;
+// responsive mixin
+@mixin breakpoint($point: mobile) {
+  @if $point == mobile {
+    @media screen and (max-width: 425px) { @content; }
+  }
+  @if $point == tablet {
+    @media screen and (max-width: 768px) { @content; }
+  }
+  @if $point == desktop {
+    @media screen and (min-width: 769px) { @content; }
+  }
+}
 
 * {
   box-sizing: border-box;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
+
 html,
 body {}
 body {
@@ -17,6 +30,7 @@ body {
   background-color: #f2f2f2;
   color: #000000;
 }
+
 h1,
 h2,
 h3,
@@ -31,6 +45,10 @@ h6 {
 h1 {
   margin: 0;
   font-size: 50px;
+  
+  @include breakpoint(mobile) {
+    font-size: 18px;
+  }
 }
 
 h2 {
@@ -70,10 +88,10 @@ a {
     color: darken($bg-dark-color, 10%);
   }
   &:hover {
-    color: lighten($bg-dark-color, 20%);
+    color: lighten($bg-dark-color, 10%);
   }
   &:active {
-    color: lighten($bg-dark-color, 30%);
+    color: lighten($bg-dark-color, 20%);
   }
 //  &:visited {
 //    color: darken($bg-dark-color, 30%);
@@ -136,6 +154,10 @@ strong {
     float: left;
     width: 25%;
     padding: 2px;
+    
+  @include breakpoint(mobile) {
+    width: 50%;
+  }
   }
 }
 
@@ -150,6 +172,7 @@ strong {
   color: #24793B;
   padding: 10px;
   line-height: 16px;
+  overflow-x: auto;
   
   &::after {
     content: 'Code';
@@ -219,4 +242,12 @@ strong {
   }
   .description {
   }
+}
+
+footer {
+  text-align: center;
+  font-size: .7em;
+  padding-top: 3px;
+  padding-bottom: 7px;
+  background: $bg-color;
 }

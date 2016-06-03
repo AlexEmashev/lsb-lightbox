@@ -216,7 +216,7 @@
       $('body').append(
         '<div class="lightspeed-box">' +
         '<div class="lsb-content">' +
-        '<h2 class="lsb-header"><span class="lsb-image-count"></span><span class="lsb-image-title"></span></h2>' +
+        '<header class="lsb-header"><div class="lsb-image-count"></div><div class="lsb-image-title"></div></header>' +
         '<div class="lsb-control-panel">' +
         '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Slideshow">►</a>' +
         '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">&#8681;</a>' +
