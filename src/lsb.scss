@@ -81,7 +81,9 @@ $lsbZindex: 30;
       max-height: 100%;
       max-width: 100%;
       min-height: 1px; // Fix scaling issues in IE
-      box-shadow: 0 2px 25px rgba(0, 0, 0, 0.87);
+      //box-shadow: 0 2px 25px rgba(0, 0, 0, 0.87); // Cause some troubles.
+      border: 3px solid rgba(0, 0, 0, 0.18);
+      border-radius: 3px;
     }
   }
   
