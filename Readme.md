@@ -71,7 +71,7 @@ If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with uni
 
 ##Settings
 
-The plugin accepts following parameters as simple JavaScript object:
+The plugin accepts following parameters as a simple JavaScript object:
 
 | Property         | Default   | Description                                                                       |
 |------------------|-----------|----------------------------------------------------------------------------------|

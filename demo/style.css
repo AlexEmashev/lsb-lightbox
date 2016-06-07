@@ -154,19 +154,16 @@ strong {
   overflow: hidden; }
   /* line 190, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   .lsb-preview img {
-    -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out; }
   /* line 195, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   .lsb-preview:hover img {
     opacity: .9;
     box-shadow: 0 1px 10px #000;
-    -webkit-transform: scale(1.3);
-            transform: scale(1.3); }
+    transform: scale(1.3); }
   /* line 202, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   .lsb-preview:active img {
     opacity: .7;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2); }
+    transform: scale(1.2); }
   /* line 208, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/demo/style.scss */
   .lsb-preview img {
     width: 100%;
@@ -208,3 +205,5 @@ footer {
   padding-top: 3px;
   padding-bottom: 7px;
   background: #F7F7F7; }
+
+/*# sourceMappingURL=style.css.map */
