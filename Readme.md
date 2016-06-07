@@ -2,7 +2,7 @@
 
 ##About
 
-LightSpeedBox is a jQuery plugin that represents a fancy image preview box (also called a lightbox).
+LightSpeedBox is a jQuery plugin for a fancy image preview box (also called a lightbox).
 
 Please see [demo page here](http://alexemashev.github.io/lsb-lightbox/).
 
@@ -11,9 +11,9 @@ Please see [demo page here](http://alexemashev.github.io/lsb-lightbox/).
 - Click thumbnail to show the lightbox
 - Individual image preview as well as go through a gallery
 - Responsive
-- Slideshow (auto playback)
+- Slideshow
 - Controls: next, previous image, close button, keyboard, swipe for touch screens
-- Smooth transitions and animations
+- Smooth transitions and animations using CSS
 - Localization
 
 ##Dependencies
@@ -24,7 +24,7 @@ Please see [demo page here](http://alexemashev.github.io/lsb-lightbox/).
 
 ###Manual Installation
 
-For manual installation just include these two files into your page:
+For manual installation just include these two files into **&lt;head&gt;** of your page:
 [lsb.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.js)
 [lsb.css](http://alexemashev.github.io/lightspeedbox/dist/lsb.css)
 
@@ -50,44 +50,70 @@ $(window).load(function() {
 </script>
 ```
 
-In HTML wrap image in **&lt;a&gt;** tag and add class **.lsb-preview**.
+In HTML wrap images in **&lt;a&gt;** tag and add class **.lsb-preview**.
+
 ```HTML
 <a href="img/full_scale.jpg" class="lsb-preview">
   <img src="img/preview.jpg" alt="Image Title">
 </a>
 ```
 
-If you add to the **&lt;a&gt;** tag data attribute **data-lsb-group** with unique name for the group lightbox will find all pictures in group and allow to switch between them.
+If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with unique name for the group lightbox will find all pictures in group and allow user to switch between them.
 
-##API
+```HTML
+<a href="img/full_scale.jpg" class="lsb-preview" data-lsb-group="group1">
+  <img src="img/preview.jpg" alt="Image Title">
+</a>
+<a href="img/full_scale2.jpg" class="lsb-preview" data-lsb-group="group1">
+  <img src="img/preview2.jpg" alt="Image Title 2">
+</a>
+```
 
-The plugin accepts following parameters:
+##Settings
+
+The plugin accepts following parameters as simple JavaScript object:
 
 | Property         | Default   | Description                                                                       |
 |------------------|-----------|----------------------------------------------------------------------------------|
-|showImageTitle|true       |Show image title (from alt attribute).|
-|showImageCount|true       |Number of images in group and number of current image (doesn't show up when single image displayed).|
-|showDownloadButton    |true|Show download full-size image button.|
-|showAutoPlayButton          |true      |Slideshow button (doesn't show up when single image displayed).|
-|autoPlayback   |false      |Slideshow enabled, when lightbox first time open.|
-|playbackTiming   |3500      |Slideshow delay (msec).|
+|showImageTitle|true       |Show image title (title uses alt attribute of an image).|
+|showImageCount|true       |Number of images in group and number of current image (doesn't show up when single image is displayed).|
+|showDownloadButton|true|Show download full-size image button.|
+|showPlayButton|true|Slideshow button (doesn't show up when single image is displayed).|
+|slideShow   |false      |Slideshow enabled, when lightbox first time open.|
+|slideShowTiming   |3500      |Slideshow delay (msec).|
 |zIndex           |30      |z-index property of lightbox (bump it higher if it shows up beneath the other elements).|
 |locale           |see below     |Localization object for element titles.|
 
 Locale object looks like this:
 
-```JSON
+```JavaScript
 {
   nextButton: 'Next image',
   prevButton: 'Previous image',
   closeButton: 'Close',
   downloadButton: 'Download image',
   noImageFound: 'Sorry, no image found.',
-  downloadButton: 'Download image',
-  autoplayButton: 'Enable autoplay'
+  playButton: 'Play slideShow',
+  pauseButton: 'Stop slideShow'
 }
+```
+Example of using the settings:
+
+```JavaScript
+<script>
+$(window).load(function() {
+  $.fn.lightspeedBox({showImageCount: false, locale: {noImageFound: 'Image is missing'}});
+});
+</script>
 ```
 
 ##License
 
-The MIT public license.
+The MIT License (MIT)
+Copyright (c) 2016 Alexander Emashev
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
