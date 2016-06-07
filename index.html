@@ -45,7 +45,7 @@
       <div class="default-block">
         <div class="content">
           <h2>About</h2>
-          <p>LightSpeedBox is a jQuery plugin that represents a fancy image preview box (also called a lightbox).</p>
+          <p>LightSpeedBox is a jQuery plugin for a fancy image preview box (also called a lightbox).</p>
           <p>Project's <a href="https://github.com/AlexEmashev/lsb-lightbox">Github page</a>.</p>
 
           <h3>Key features:</h3>
@@ -53,12 +53,12 @@
             <li>Click thumbnail to show the lightbox</li>
             <li>Individual image preview as well as gallery</li>
             <li>Responsive</li>
-            <li>Slideshow (auto playback)</li>
+            <li>Slideshow</li>
             <li>Controls: next, previous image, close button, keyboard, swipe for touch screens</li>
-            <li>Smooth transitions and animations</li>
+            <li>Smooth transitions and animations using CSS</li>
             <li>Localization</li>
             <li>Open source</li>
-            <li>Works in webkit browsers, FireFox, IE > 9 (in IE9 plugin is still usable, though layout is not really that great).</li>
+            <li>Works in webkit browsers, FireFox, IE > 9 (in IE9 plugin is still usable, though layout isn't really that great).</li>
           </ul>
           
           <h2>Installation</h2>
@@ -69,7 +69,9 @@
             <br/><a href="https://cdn.rawgit.com/AlexEmashev/lsb-lightbox/master/dist/lsb.css">lsb.css</a>
           </p>
           <h3>Install using Bower</h3>
-          <p>Use following command: <strong>bower install lightspeedbox</strong> or 
+          <p>Use following commands: <br>
+          <strong>bower install lightspeedbox</strong> <br>
+          or <br>
           <strong>bower install lightspeedbox --save</strong> to save to your project as dependency.</p>
         </div>
       </div>
@@ -80,7 +82,8 @@
       <div class="default-block">
         <div class="content">
           <h2>Individual image preview</h2>
-          <p>To preview a single image with LSB lightbox, use class <strong>'.lsb-preview'</strong> on <strong>&lt;a&gt;</strong> tag of an image. And don't forget to activate a plugin in JavaScript code.</p>
+          <p>To preview a single image with LSB lightbox, use class <strong>'.lsb-preview'</strong> on <strong>&lt;a&gt;</strong> tag of an image. 
+          And don't forget to activate a plugin in JavaScript code somewhere e.g. in <strong>&lt;head&gt;</strong> tag.</p>
           <div class="code">
             &lt;script&gt;
             <br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{
@@ -96,7 +99,7 @@
       </div>
       <div class="accent-block">
         <div class="content showcase single-image">
-          <p>This is some text, an article if you like. The article that should display individual images like the one below.</p>
+          <p>This is some text, an article if you like. This article displays individual images like the one below.</p>
           <a href="img/a_cat_and_a_balloon.jpg" class="lsb-preview single">
             <img src="img/a_cat_and_a_balloon_prev.jpg" alt="A cat and a baloon">
           </a>
@@ -112,8 +115,9 @@
     <section class="example">
       <div class="default-block">
         <div class="content">
-          <h2>Lightbox for Gallery</h2>
-          <p>To let lightbox go through image gallery (or group) just add data attribute <strong>'data-lsb-group'</strong> with appropriate value to each preview in group.</p>
+          <h2>Lightbox for a Gallery</h2>
+          <p>To let the lightbox go through image gallery (or group) just add data attribute <strong>'data-lsb-group'</strong> 
+          to <strong>&lt;a&gt;</strong> tag that holds image. Images in one gallery should share same attribute value.</p>
           <p>You can use as many groups as you need on a single page as well as mixing them with a single image.</p>
           <div class="code">
             &lt;script&gt;
@@ -169,7 +173,7 @@
       <div class="default-block">
         <div class="content">
           <h2>No image</h2>
-          <p>That's what happens if full size image hasn't found.</p>
+          <p>That's what happens if full size image hasn't been found.</p>
         </div>
       </div>
       <div class="accent-block">
@@ -196,12 +200,12 @@
             <div class="row">
               <div class="cell name">showImageTitle</div>
               <div class="cell default">true</div>
-              <div class="cell description">Show image title (from alt attribute).</div>
+              <div class="cell description">Show image title (title uses alt attribute of an image).</div>
             </div>
             <div class="row">
               <div class="cell name">showImageCount</div>
               <div class="cell default">true</div>
-              <div class="cell description">Number of images in group and number of current image (doesn't show up when single image displayed).</div>
+              <div class="cell description">Number of images in group and number of current image (doesn't show up when single image is displayed).</div>
             </div>
             <div class="row">
               <div class="cell name">showDownloadButton</div>
@@ -209,17 +213,17 @@
               <div class="cell description">Show download full-size image button.</div>
             </div>
             <div class="row">
-              <div class="cell name">showAutoPlayButton</div>
+              <div class="cell name">showPlayButton</div>
               <div class="cell default">true</div>
-              <div class="cell description">Slideshow button (doesn't show up when single image displayed).</div>
+              <div class="cell description">Slideshow button (doesn't show up when single image is displayed).</div>
             </div>
             <div class="row">
-              <div class="cell name">autoPlayback</div>
+              <div class="cell name">slideShow</div>
               <div class="cell default">false</div>
               <div class="cell description">Slideshow enabled, when lightbox first time open.</div>
             </div>
             <div class="row">
-              <div class="cell name">playbackTiming</div>
+              <div class="cell name">slideShowTiming</div>
               <div class="cell default">3500</div>
               <div class="cell description">Slideshow delay (msec).</div>
             </div>
@@ -237,11 +241,12 @@
                 <br> downloadButton: 'Download image',
                 <br> noImageFound: 'Sorry, no image found.',
                 <br> downloadButton: 'Download image',
-                <br> autoplayButton: 'Enable autoplay'
+                <br> playButton: 'Enable autoplay'
+                <br> pauseButton: 'Stop slideShow'
                 <br> }
 
               </div>
-              <div class="cell description">Localization settings in JavaScript object (see below)</div>
+              <div class="cell description">Localization settings in a JavaScript object.</div>
             </div>
           </div>
           
@@ -251,7 +256,7 @@
             <br/>&nbsp;&nbsp;$(window).load(function()&nbsp;{
             <br/>&nbsp;&nbsp;&nbsp;&nbsp;$.fn.lightspeedBox({
             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showDownloadButton:&nbsp;false,
-            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showAutoPlayButton:&nbsp;false,
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showPlayButton:&nbsp;false,
             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showImageCount:&nbsp;false
             <br/>&nbsp;&nbsp;&nbsp;&nbsp;});
             <br/>&nbsp;&nbsp;});
