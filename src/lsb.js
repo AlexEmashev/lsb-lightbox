@@ -2,6 +2,7 @@
  * jQuery plugin "Lightspeed box".
  * Lightbox plugin with transitions and wait cursor.
  *
+ * https://github.com/AlexEmashev/lsb-lightbox
  * Author: Alexander Emashev
  * License: The MIT public license.
  */
@@ -12,8 +13,8 @@
       showImageTitle: true,
       showImageCount: true,
       showDownloadButton: true,
-      showAutoPlayButton: true,
-      autoPlayback: false,
+      showPlayButton: true,
+      slideshow: false,
       playbackTiming: 3500,
       zIndex: 30,
       locale: {
@@ -22,7 +23,8 @@
         closeButton: 'Close',
         downloadButton: 'Download image',
         noImageFound: 'Sorry, no image found.',
-        autoplayButton: 'Enable autoplay'
+        playButton: 'Play slideshow',
+        pauseButton: 'Stop slideshow'
       }
     };
     
@@ -82,9 +84,14 @@
     var $download;
     
     /**
-    * Autoplay button.
+    * Play slideshow button.
     */
-    var $autoplay;
+    var $play;
+    
+    /**
+    * Pause button
+    */
+    var $pause;
     
     /**
      * Used for transition effect between slides.
@@ -155,12 +162,12 @@
         if (this.images.length === 1) {
           $prev.css('visibility', 'hidden');
           $next.css('visibility', 'hidden');
-          $autoplay.hide();
+          $play.hide();
         } else {
           $prev.css('visibility', 'visible');
           $next.css('visibility', 'visible');
-          if(settings.showAutoPlayButton)
-            $autoplay.show();
+          if(settings.showPlayButton)
+            $play.show();
         }
       },
       /**
@@ -218,8 +225,30 @@
         '<div class="lsb-content">' +
         '<header class="lsb-header"><div class="lsb-image-count"></div><div class="lsb-image-title"></div></header>' +
         '<div class="lsb-control-panel">' +
-        '<a class="lsb-control lsb-panel-button lsb-autoplay" title="Slideshow">►</a>' +
-        '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">&#8681;</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-play" title="Slideshow">' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' + 
+        '<path fill="#000" d="M1384 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" />' + 
+        '</svg>' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' + 
+        '<path fill="#fff" d="M1384 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" />' + 
+        '</svg>' +
+        '</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-pause" title="Stop Slideshow">' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1536 1792">' + 
+        '<path fill="#000" d="M1536 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zM640 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" />' + 
+        '</svg>' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1536 1792">' + 
+        '<path fill="#fff" d="M1536 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zM640 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" />' + 
+        '</svg>' +
+        '</a>' +
+        '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1664 1792">' + 
+        '<path fill="#000" d="M1280 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1536 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1664 1120v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zM1339 551q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z" />' + 
+        '</svg>' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1664 1792">' + 
+        '<path fill="#fff" d="M1280 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1536 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1664 1120v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zM1339 551q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z" />' + 
+        '</svg>' +
+        '</a>' +
         '</div>' +
         '<div class="lsb-image-container">' +
         '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, no image found.</div></div>' +
@@ -228,9 +257,30 @@
         '<div class="waitingicon">' +
         waitingIconCircle +
         '</div>' +
-        '<div class="lsb-control lsb-close"><span class="lsb-control-text" title="Close the image">&#x2716;</span></div>' +
-        '<div class="lsb-control lsb-prev"><span class="lsb-control-text" title="Next image">&lt;</span></div>' +
-        '<div class="lsb-control lsb-next"><span class="lsb-control-text" title="Previous image">&gt;</span></div>' +
+        '<div class="lsb-control lsb-close">' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' + 
+        '<path fill="#000" d="M1298 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />' + 
+        '</svg>' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' + 
+        '<path fill="#fff" d="M1298 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />' + 
+        '</svg>' +
+        '</div>' +
+        '<div class="lsb-control lsb-prev" title="Previous Image">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
+        '<path fill="#000" d="M627 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z" />' +
+        '</svg>'+
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
+        '<path fill="#fff" d="M627 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z" />' +
+        '</svg>'+
+        '</div>' +
+        '<div class="lsb-control lsb-next" title="Next Image">' + 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' + 
+        '<path fill="#000" d="M595 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z" />' + 
+        '</svg>' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' + 
+        '<path fill="#fff" d="M595 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z" />' + 
+        '</svg>' +
+        '</div>' +
         '</div>' +
         '</div>'
       );
@@ -249,21 +299,26 @@
       $prev = $lsb.find('.lsb-prev');
       $close = $lsb.find('.lsb-close');
       $download = $lsb.find('.lsb-download');
-      $autoplay = $lsb.find('.lsb-autoplay');
+      $play = $lsb.find('.lsb-play');
+      $pause = $lsb.find('.lsb-pause');
 
       if (!settings.showDownloadButton) {
         $download.hide();
       }
       
-      if (!settings.showAutoPlayButton) {
-        $autoplay.hide();
+      if (settings.showPlayButton) {
+        $play.hide();
       }
+      
+      $pause.hide();
 
       // Set l10n.
       $next.attr('title', settings.locale.nextButton);
       $prev.attr('title', settings.locale.prevButton);
       $close.attr('title', settings.locale.closeButton);
       $download.attr('title', settings.locale.downloadButton);
+      $play.attr('title', settings.locale.playButton);
+      $pause.attr('title', settings.locale.pauseButton);
       $noImageFound.find('.no-found-msg').text(settings.locale.noImageFound);
 
 
@@ -304,7 +359,7 @@
        */
       $next.click(function (event) {
         event.stopPropagation();
-        settings.autoPlayback = false;
+        settings.slideshow = false;
         switchImage(imageCollection.nextImage());
       });
 
@@ -313,27 +368,24 @@
        */
       $prev.click(function (event) {
         event.stopPropagation();
-        settings.autoPlayback = false;
+        settings.slideshow = false;
         switchImage(imageCollection.previousImage());
       });
       
       /**
-      * Autoplay click.
+      * Play click.
       */
-      $autoplay.click(function (event) {
+      $play.click(function (event) {
         event.stopPropagation();
-        settings.autoPlayback = !settings.autoPlayback;
-        
-        if (settings.autoPlayback) {
-          $autoplay.text('| |');
-          $autoplay.removeClass('lsb-autoplay');
-          $autoplay.addClass('lsb-autoplay-playing');
-          window.setTimeout(playbackGo, settings.playbackTiming);
-        } else {
-          $autoplay.text('►');
-          $autoplay.removeClass('lsb-autoplay-playing ');
-          $autoplay.addClass('lsb-autoplay');
-        }
+        switchPlayback(true);
+      });
+      
+      /**
+      * Pause click.
+      */
+      $pause.click(function (event) {
+        event.stopPropagation();
+        switchPlayback(false);
       });
       
       /**
@@ -357,7 +409,7 @@
        * Click on empty space of lightbox.
        */
       $lsb.click(function (event) {
-        settings.autoPlayback = false;
+        switchPlayback(false);
         closeLightbox();
       });
 
@@ -373,14 +425,31 @@
     function switchOrCloseImage(event) {
       if (typeof event !== 'undefined') {
         event.stopPropagation();
-        // This means user used any of controls, so autoPlayback should be disabled.
-        settings.autoPlayback = false;
+        // This means user used any of controls, so play button should be disabled.
+        switchPlayback(false);
       }
 
       if (imageCollection.images.length > 1) {
         switchImage(imageCollection.nextImage());
       } else {
         closeLightbox();
+      }
+    }
+    
+    /**
+    * Switch interface between play and pause.
+    * @param play {Boolean} true to turn on slideshow.
+    */
+    function switchPlayback(play) {
+      if (play) {
+        settings.slideshow = true;
+        $play.hide();
+        $pause.show();
+        window.setTimeout(playbackGo, settings.playbackTiming);
+      } else {
+        settings.slideshow = false;
+        $play.show();
+        $pause.hide();
       }
     }
 
@@ -395,7 +464,7 @@
       showLightbox();
       switchImage(imageCollection.images[imageCollection.current]);
 
-      if (settings.autoPlayback) {
+      if (settings.slideshow) {
         window.setTimeout(playbackGo, settings.playbackTiming);
       }
     });
@@ -419,11 +488,11 @@
     }
 
     function playbackGo() {
-      if (settings.autoPlayback)
+      if (settings.slideshow)
         switchOrCloseImage();
 
       // If lightbox is not closed and playback enabled, set timeout for new slide.
-      if (settings.autoPlayback && !lsbClosed) {
+      if (settings.slideshow && !lsbClosed) {
         window.setTimeout(playbackGo, settings.playbackTiming);
       }
     }
