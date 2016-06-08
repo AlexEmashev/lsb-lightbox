@@ -1,0 +1,29 @@
+{
+  "name": "lsb-lightbox",
+  "homepage": "https://github.com/AlexEmashev/lsb-lightbox",
+  "authors": [
+    "Alexander Emashev alex.emashev@gmail.com"
+  ],
+  "description": "Lightbox jQuery plugin for making a fancy preview box for images.",
+  "main": ["dist/lsb.min.js", "dist/lsb.css"],
+  "moduleType": [],
+  "keywords": [
+    "lightbox",
+    "transitions",
+    "touch",
+    "jquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "demo",
+    ".idea",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2"
+  }
+}
