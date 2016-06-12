@@ -325,6 +325,37 @@
 
       ///// Add event handlers for elements. //////
 
+      var mouseOffset = {x: 0, y: 0}; // Structure to support preview click.
+      var clickThreshold = 20; // Max amount in pixels to detect click.
+      /**
+      * Instead of click on image, detect mousedown and mouseup events. They work with touch either.
+      * This allows to use this lightbox in different sliders.
+      */
+      $('.lsb-preview').mousedown(function (event) {
+        mouseOffset.x = event.clientX;
+        mouseOffset.y = event.clientY;
+      });
+      
+      $('.lsb-preview').mouseup(function (event) {
+        if (Math.abs(mouseOffset.x - event.clientX) < clickThreshold &&
+           Math.abs(mouseOffset.y - event.clientY) < clickThreshold) {
+          // Get all images in set
+          imageCollection.getImagesInSet($(this));
+          
+          showLightbox();
+          switchImage(imageCollection.images[imageCollection.current]);
+          
+          if (settings.slideshow) {
+            window.setTimeout(playbackGo, settings.playbackTiming);
+          }
+        }
+      });
+      
+      $('.lsb-preview').click(function (event) {
+        event.preventDefault();
+      });
+      
+      
       // Add swipe detection plugin.
       $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function (event) {
         if (imageCollection.images.length > 1) {
@@ -452,22 +483,6 @@
         $pause.hide();
       }
     }
-
-    /**
-     * Click on any of the previews.
-     */
-    $('.lsb-preview').click(function (event) {
-      event.preventDefault();
-      // Get all images to set.
-      imageCollection.getImagesInSet($(this));
-
-      showLightbox();
-      switchImage(imageCollection.images[imageCollection.current]);
-
-      if (settings.slideshow) {
-        window.setTimeout(playbackGo, settings.playbackTiming);
-      }
-    });
 
     /**
      * Shows lightbox.
