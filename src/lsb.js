@@ -306,7 +306,7 @@
         $download.hide();
       }
       
-      if (settings.showPlayButton) {
+      if (!settings.showPlayButton) {
         $play.hide();
       }
       
