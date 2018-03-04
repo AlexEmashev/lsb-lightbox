@@ -1,6 +1,6 @@
-#LightSpeedBox (lightbox jQuery plugin)
+# LightSpeedBox (lightbox jQuery plugin)
 
-##About
+## About
 
 LightSpeedBox is a jQuery plugin for a fancy image preview box (also called a lightbox).
 
@@ -8,7 +8,7 @@ LightSpeedBox is a jQuery plugin for a fancy image preview box (also called a li
 
 Please see [demo page here](http://alexemashev.github.io/lsb-lightbox/).
 
-##Features
+## Features
 
 - Click thumbnail to show the lightbox
 - Individual image preview as well as go through a gallery
@@ -18,13 +18,13 @@ Please see [demo page here](http://alexemashev.github.io/lsb-lightbox/).
 - Smooth transitions and animations using CSS
 - Localization
 
-##Dependencies
+## Dependencies
 
-- [jQuery](http://jquery.com/)
+Ubiquitous [jQuery](http://jquery.com/) library
 
-##Installation
+## Installation
 
-###Manual Installation
+### Manual Installation
 
 For manual installation just include these two files into **&lt;head&gt;** of your page:
 [lsb.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.js)
@@ -32,7 +32,7 @@ For manual installation just include these two files into **&lt;head&gt;** of yo
 
 You'll also need to add [jQuery](http://jquery.com/) library if it's not already.
 
-###Using Bower
+### Using Bower
 
 Use following command:
 `bower install lightspeedbox`
@@ -40,7 +40,7 @@ or
 `bower install lightspeedbox --save`
 to save to your project as dependency.
 
-##Usage
+## Usage
 
 To initialize the plugin put this script into your head tag.
 
@@ -71,7 +71,7 @@ If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with uni
 </a>
 ```
 
-##Settings
+## Settings
 
 The plugin accepts following parameters as a simple JavaScript object:
 
@@ -109,10 +109,10 @@ $(window).load(function() {
 </script>
 ```
 
-##License
+## License
 
 The MIT License (MIT)
-Copyright (c) 2016 Alexander Emashev
+Copyright (c) 2018 Alexander Emashev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
