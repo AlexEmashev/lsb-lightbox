@@ -1,28 +1,28 @@
-#LightSpeedBox (lightbox jQuery plugin)
+# LightSpeedBox (lightbox jQuery plugin)
 
-##About
+## About
 
 LightSpeedBox is a jQuery plugin for a fancy image preview box (also called a lightbox).
 
 Please see [demo page here](http://alexemashev.github.io/lsb-lightbox/).
 
-##Features
+## Features
 
 - Click thumbnail to show the lightbox
-- Individual image preview as well as go through a gallery
-- Responsive
+- Individual image preview as well as walk through a gallery
+- Responsive design
 - Slideshow
 - Controls: next, previous image, close button, keyboard, swipe for touch screens
-- Smooth transitions and animations using CSS
+- Smooth transitions and animations using CSS3
 - Localization
 
-##Dependencies
+## Dependencies
 
 - [jQuery](http://jquery.com/)
 
-##Installation
+## Installation
 
-###Manual Installation
+### Manual Installation
 
 For manual installation just include these two files into **&lt;head&gt;** of your page:
 [lsb.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.js)
@@ -30,7 +30,7 @@ For manual installation just include these two files into **&lt;head&gt;** of yo
 
 You'll also need to add [jQuery](http://jquery.com/) library if it's not already.
 
-###Using Bower
+### Using Bower
 
 Use following command:
 `bower install lightspeedbox`
@@ -38,7 +38,7 @@ or
 `bower install lightspeedbox --save`
 to save to your project as dependency.
 
-##Usage
+## Usage
 
 To initialize the plugin put this script into your head tag.
 
@@ -50,7 +50,7 @@ $(window).load(function() {
 </script>
 ```
 
-In HTML wrap images in **&lt;a&gt;** tag and add class **.lsb-preview**.
+In HTML wrap images in **&lt;a&gt;** tag with class **.lsb-preview**.
 
 ```HTML
 <a href="img/full_scale.jpg" class="lsb-preview">
@@ -58,7 +58,7 @@ In HTML wrap images in **&lt;a&gt;** tag and add class **.lsb-preview**.
 </a>
 ```
 
-If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with unique name for the group lightbox will find all pictures in group and allow user to switch between them.
+If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with unique name for the group lightbox will find all pictures in the group and allow user to switch through them.
 
 ```HTML
 <a href="img/full_scale.jpg" class="lsb-preview" data-lsb-group="group1">
@@ -69,20 +69,20 @@ If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with uni
 </a>
 ```
 
-##Settings
+## Settings
 
 The plugin accepts following parameters as simple JavaScript object:
 
 | Property         | Default   | Description                                                                       |
 |------------------|-----------|----------------------------------------------------------------------------------|
-|showImageTitle|true       |Show image title (title uses alt attribute of an image).|
-|showImageCount|true       |Number of images in group and number of current image (doesn't show up when single image is displayed).|
+|showImageTitle|true       |Shows image title (title uses alt attribute of an image).|
+|showImageCount|true       |Number of images in the group and number of a current image (doesn't show up when single image is displayed).|
 |showDownloadButton|true|Show download full-size image button.|
-|showPlayButton|true|Slideshow button (doesn't show up when single image is displayed).|
-|slideShow   |false      |Slideshow enabled, when lightbox first time open.|
+|showPlayButton|true|Slideshow button (doesn't show up when a single image is displayed).|
+|slideShow   |false      |Turns on slide-show, when lightbox first time open.|
 |slideShowTiming   |3500      |Slideshow delay (msec).|
-|zIndex           |30      |z-index property of lightbox (bump it higher if it shows up beneath the other elements).|
-|locale           |see below     |Localization object for element titles.|
+|zIndex           |30      |z-index property of lightbox (bump it higher if it shows up beneath some other elements).|
+|locale           |see below     |Localization object for element titles (please see below).|
 
 Locale object looks like this:
 
@@ -107,10 +107,10 @@ $(window).load(function() {
 </script>
 ```
 
-##License
+## License
 
 The MIT License (MIT)
-Copyright (c) 2016 Alexander Emashev
+Copyright (c) 2018 Alexander Emashev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
