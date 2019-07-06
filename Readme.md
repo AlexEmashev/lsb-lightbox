@@ -27,10 +27,10 @@ Ubiquitous [jQuery](http://jquery.com/) library
 ### Manual Installation
 
 For manual installation just include these two files into **&lt;head&gt;** of your page:
-[lsb.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.js)
+[lsb.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.min.js)
 [lsb.css](http://alexemashev.github.io/lightspeedbox/dist/lsb.css)
 
-You'll also need to add [jQuery](http://jquery.com/) library if it's not already.
+You'll also need to add [jQuery](http://jquery.com/) library if it's not already added.
 
 ### Using Bower
 
@@ -52,7 +52,7 @@ $(window).load(function() {
 </script>
 ```
 
-In HTML wrap images in **&lt;a&gt;** tag and add class **.lsb-preview**.
+In HTML wrap images in **&lt;a&gt;** tag with class **.lsb-preview**.
 
 ```HTML
 <a href="img/full_scale.jpg" class="lsb-preview">
@@ -60,7 +60,7 @@ In HTML wrap images in **&lt;a&gt;** tag and add class **.lsb-preview**.
 </a>
 ```
 
-If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with unique name for the group lightbox will find all pictures in group and allow user to switch between them.
+Use data-lsb-group data attribute with group name in **&lt;a&gt;** tag to combine images into single group to switch between them.
 
 ```HTML
 <a href="img/full_scale.jpg" class="lsb-preview" data-lsb-group="group1">
@@ -71,20 +71,30 @@ If you add to the **&lt;a&gt;** tag a data attribute **data-lsb-group** with uni
 </a>
 ```
 
+Use data-lsb-download-link data attribute in **&lt;a&gt;** tag to provide alternative image for downloading.
+
+```HTML
+<a href="img/lightbox-image.jpg" class="lsb-preview" data-lsb-download-link="http://example.com/fullsize-image.jpg">
+  <img src="img/preview.jpg" alt="Image Title">
+</a>
+```
+
 ## Settings
 
 The plugin accepts following parameters as a simple JavaScript object:
 
-| Property         | Default   | Description                                                                       |
-|------------------|-----------|----------------------------------------------------------------------------------|
-|showImageTitle|true       |Show image title (title uses alt attribute of an image).|
-|showImageCount|true       |Number of images in group and number of current image (doesn't show up when single image is displayed).|
-|showDownloadButton|true|Show download full-size image button.|
-|showPlayButton|true|Slideshow button (doesn't show up when single image is displayed).|
-|slideShow   |false      |Slideshow enabled, when lightbox first time open.|
-|slideShowTiming   |3500      |Slideshow delay (msec).|
-|zIndex           |30      |z-index property of lightbox (bump it higher if it shows up beneath the other elements).|
-|locale           |see below     |Localization object for element titles.|
+| Property           | Default   | Description                                                                                             |
+| ------------------ | --------- | ------------------------------------------------------------------------------------------------------- |
+| showImageTitle     | true      | Show image title (title uses alt attribute of an image).                                                |
+| showImageCount     | true      | Number of images in group and number of current image (doesn't show up when single image is displayed). |
+| showDownloadButton | true      | Show download full-size image button.                                                                   |
+| showPlayButton     | true      | Slideshow button (doesn't show up when single image is displayed).                                      |
+| slideShow          | false     | Slideshow enabled, when lightbox first time open.                                                       |
+| slideShowTiming    | 3500      | Slideshow delay (msec).                                                                                 |
+| zIndex             | 30        | z-index property of lightbox (bump it higher if it shows up beneath the other elements).                |
+| locale             | see below | Localization object for element titles.                                                                 |
+
+## Localization
 
 Locale object looks like this:
 
@@ -99,6 +109,7 @@ Locale object looks like this:
   pauseButton: 'Stop slideShow'
 }
 ```
+
 Example of using the settings:
 
 ```JavaScript
@@ -112,7 +123,7 @@ $(window).load(function() {
 ## License
 
 The MIT License (MIT)
-Copyright (c) 2018 Alexander Emashev
+Copyright (c) 2019 Alexander Emashev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
