@@ -1,14 +1,14 @@
 /**
  * jQuery plugin "Lightspeed box".
- * Lightbox plugin with transitions and wait cursor.
+ * A responsive lightbox plugin with css transitions, touch support and wait cursor for async loads.
  *
  * https://github.com/AlexEmashev/lsb-lightbox
  * Author: Alexander Emashev
  * License: The MIT public license.
  */
-(function ($) {
+(function($) {
   'use strict';
-  $.fn.lightspeedBox = function (options) {
+  $.fn.lightspeedBox = function(options) {
     var defaultSettings = {
       showImageTitle: true,
       showImageCount: true,
@@ -84,13 +84,13 @@
     var $download;
 
     /**
-    * Play slideshow button.
-    */
+     * Play slideshow button.
+     */
     var $play;
 
     /**
-    * Pause button
-    */
+     * Pause button
+     */
     var $pause;
 
     /**
@@ -99,8 +99,8 @@
     var transitionTimeout = 400;
 
     /**
-    * Flag that lsb is closed
-    */
+     * Flag that lsb is closed
+     */
     var lsbClosed = true;
 
     /**
@@ -120,39 +120,45 @@
        * Fills image collection with appropriate images
        * @param $selectedImg - current image element.
        */
-      getImagesInSet: function ($selectedImg) {
+      getImagesInSet: function($selectedImg) {
         var previews;
         // Reset previous images.
         var collectedImages = [];
         var curImgIndex = 0;
 
-        // Get selected image props
-        var selectedImgHref = $selectedImg.attr('href');
-        var selectedImgAlt = $selectedImg.find('img').attr('alt');
         // Check if element is in group.
         var group = $selectedImg.attr('data-lsb-group');
 
         // Get all images in group
         if (group) {
           previews = $('.lsb-preview[data-lsb-group="' + group + '"]');
+          var selectedImgHref = $selectedImg.attr('href');
           // Fill collection with found elements.
-          previews.each(function (i, element) {
+          previews.each(function(i, element) {
             var elementHref = element.getAttribute('href');
-            var alt = $(element).find('img').attr('alt');
+            var alt = $(element)
+              .find('img')
+              .attr('alt');
+            var elementImageDownloadUrl = element.getAttribute(
+              'data-lsb-download-link'
+            );
 
             collectedImages.push({
               href: elementHref,
-              alt: alt
+              alt: alt,
+              downloadUrl: elementImageDownloadUrl
             });
             // Calculate image of the collection that should be displayed (the one user clicked).
             if (elementHref === selectedImgHref) {
               curImgIndex = i;
             }
           });
-        } else { // If it is a single image
+        } else {
+          // If it is a single image
           collectedImages.push({
-            href: selectedImgHref,
-            alt: selectedImgAlt
+            href: $selectedImg.attr('href'),
+            alt: $selectedImg.find('img').attr('alt'),
+            downloadUrl: $selectedImg.attr('data-lsb-download-link')
           });
         }
 
@@ -166,14 +172,13 @@
         } else {
           $prev.css('visibility', 'visible');
           $next.css('visibility', 'visible');
-          if(settings.showPlayButton)
-            $play.show();
+          if (settings.showPlayButton) $play.show();
         }
       },
       /**
        * Returns next image reference.
        */
-      nextImage: function () {
+      nextImage: function() {
         if (this.images.length === 0) {
           return '';
         }
@@ -188,7 +193,7 @@
       /**
        * Returns previous image reference.
        */
-      previousImage: function () {
+      previousImage: function() {
         if (this.images.length === 0) {
           return '';
         }
@@ -203,7 +208,7 @@
       /**
        * Returns true if images holds more than just one image.
        */
-      canSwitch: function () {
+      canSwitch: function() {
         return this.images.length > 1;
       }
     };
@@ -222,67 +227,67 @@
 
       $('body').append(
         '<div class="lightspeed-box">' +
-        '<div class="lsb-content">' +
-        '<header class="lsb-header"><div class="lsb-image-count"></div><div class="lsb-image-title"></div></header>' +
-        '<div class="lsb-control-panel">' +
-        '<a class="lsb-control lsb-panel-button lsb-play" title="Slideshow">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
-        '<path fill="#000" d="M1384 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" />' +
-        '</svg>' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
-        '<path fill="#fff" d="M1384 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" />' +
-        '</svg>' +
-        '</a>' +
-        '<a class="lsb-control lsb-panel-button lsb-pause" title="Stop Slideshow">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1536 1792">' +
-        '<path fill="#000" d="M1536 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zM640 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" />' +
-        '</svg>' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1536 1792">' +
-        '<path fill="#fff" d="M1536 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zM640 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" />' +
-        '</svg>' +
-        '</a>' +
-        '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1664 1792">' +
-        '<path fill="#000" d="M1280 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1536 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1664 1120v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zM1339 551q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z" />' +
-        '</svg>' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1664 1792">' +
-        '<path fill="#fff" d="M1280 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1536 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1664 1120v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zM1339 551q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z" />' +
-        '</svg>' +
-        '</a>' +
-        '</div>' +
-        '<div class="lsb-image-container">' +
-        '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, no image found.</div></div>' +
-        '<img class="lsb-image lsb-noimage">' +
-        '</div>' +
-        '<div class="waitingicon">' +
-        waitingIconCircle +
-        '</div>' +
-        '<div class="lsb-control lsb-close">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
-        '<path fill="#000" d="M1298 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />' +
-        '</svg>' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
-        '<path fill="#fff" d="M1298 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />' +
-        '</svg>' +
-        '</div>' +
-        '<div class="lsb-control lsb-prev" title="Previous Image">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
-        '<path fill="#000" d="M627 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z" />' +
-        '</svg>'+
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
-        '<path fill="#fff" d="M627 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z" />' +
-        '</svg>'+
-        '</div>' +
-        '<div class="lsb-control lsb-next" title="Next Image">' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
-        '<path fill="#000" d="M595 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z" />' +
-        '</svg>' +
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
-        '<path fill="#fff" d="M595 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z" />' +
-        '</svg>' +
-        '</div>' +
-        '</div>' +
-        '</div>'
+          '<div class="lsb-content">' +
+          '<header class="lsb-header"><div class="lsb-image-count"></div><div class="lsb-image-title"></div></header>' +
+          '<div class="lsb-control-panel">' +
+          '<a class="lsb-control lsb-panel-button lsb-play" title="Slideshow">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
+          '<path fill="#000" d="M1384 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" />' +
+          '</svg>' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
+          '<path fill="#fff" d="M1384 927l-1328 738q-23 13-39.5 3t-16.5-36v-1472q0-26 16.5-36t39.5 3l1328 738q23 13 23 31t-23 31z" />' +
+          '</svg>' +
+          '</a>' +
+          '<a class="lsb-control lsb-panel-button lsb-pause" title="Stop Slideshow">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1536 1792">' +
+          '<path fill="#000" d="M1536 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zM640 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" />' +
+          '</svg>' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1536 1792">' +
+          '<path fill="#fff" d="M1536 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45zM640 192v1408q0 26-19 45t-45 19h-512q-26 0-45-19t-19-45v-1408q0-26 19-45t45-19h512q26 0 45 19t19 45z" />' +
+          '</svg>' +
+          '</a>' +
+          '<a class="lsb-control lsb-panel-button lsb-download" download title="Download Image">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1664 1792">' +
+          '<path fill="#000" d="M1280 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1536 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1664 1120v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zM1339 551q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z" />' +
+          '</svg>' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1664 1792">' +
+          '<path fill="#fff" d="M1280 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1536 1344q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zM1664 1120v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zM1339 551q17 41-14 70l-448 448q-18 19-45 19t-45-19l-448-448q-31-29-14-70 17-39 59-39h256v-448q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z" />' +
+          '</svg>' +
+          '</a>' +
+          '</div>' +
+          '<div class="lsb-image-container">' +
+          '<div class="lsb-no-image-found"><div class="no-found-msg">Sorry, no image found.</div></div>' +
+          '<img class="lsb-image lsb-noimage">' +
+          '</div>' +
+          '<div class="waitingicon">' +
+          waitingIconCircle +
+          '</div>' +
+          '<div class="lsb-control lsb-close">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
+          '<path fill="#000" d="M1298 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />' +
+          '</svg>' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1408 1792">' +
+          '<path fill="#fff" d="M1298 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />' +
+          '</svg>' +
+          '</div>' +
+          '<div class="lsb-control lsb-prev" title="Previous Image">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
+          '<path fill="#000" d="M627 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z" />' +
+          '</svg>' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
+          '<path fill="#fff" d="M627 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z" />' +
+          '</svg>' +
+          '</div>' +
+          '<div class="lsb-control lsb-next" title="Next Image">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
+          '<path fill="#000" d="M595 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z" />' +
+          '</svg>' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 640 1792">' +
+          '<path fill="#fff" d="M595 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z" />' +
+          '</svg>' +
+          '</div>' +
+          '</div>' +
+          '</div>'
       );
 
       // Lightbox element.
@@ -321,24 +326,24 @@
       $pause.attr('title', settings.locale.pauseButton);
       $noImageFound.find('.no-found-msg').text(settings.locale.noImageFound);
 
-
-
       ///// Add event handlers for elements. //////
 
-      var mouseOffset = {x: 0, y: 0}; // Structure to support preview click.
+      var mouseOffset = { x: 0, y: 0 }; // Structure to support preview click.
       var clickThreshold = 20; // Max amount in pixels to detect click.
       /**
-      * Instead of click on image, detect mousedown and mouseup events. They work with touch either.
-      * This allows to use this lightbox in different sliders.
-      */
-      $('.lsb-preview').mousedown(function (event) {
+       * Instead of click on image, detect mousedown and mouseup events. They work with touch either.
+       * This allows to use this lightbox in different sliders.
+       */
+      $('.lsb-preview').mousedown(function(event) {
         mouseOffset.x = event.clientX;
         mouseOffset.y = event.clientY;
       });
 
-      $('.lsb-preview').mouseup(function (event) {
-        if (Math.abs(mouseOffset.x - event.clientX) < clickThreshold &&
-           Math.abs(mouseOffset.y - event.clientY) < clickThreshold) {
+      $('.lsb-preview').mouseup(function(event) {
+        if (
+          Math.abs(mouseOffset.x - event.clientX) < clickThreshold &&
+          Math.abs(mouseOffset.y - event.clientY) < clickThreshold
+        ) {
           // Get all images in set
           imageCollection.getImagesInSet($(this));
 
@@ -351,13 +356,12 @@
         }
       });
 
-      $('.lsb-preview').click(function (event) {
+      $('.lsb-preview').click(function(event) {
         event.preventDefault();
       });
 
-
       // Add swipe detection plugin.
-      $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function (event) {
+      $lsb.swipeDetector().on('swipeLeft.lsb swipeRight.lsb', function(event) {
         if (imageCollection.images.length > 1) {
           if (event.type === 'swipeLeft') {
             switchImage(imageCollection.nextImage());
@@ -370,16 +374,18 @@
       /**
        * Keyboard support.
        */
-      $(document).on('keyup.lightspeed-box', function (event) {
+      $(document).on('keyup.lightspeed-box', function(event) {
         if ($lsb.hasClass('lsb-active')) {
           // Right button press. Image switching make sence only if there are more than one image in collection.
           if (event.which === 39 && imageCollection.images.length > 1) {
             event.stopPropagation();
             switchImage(imageCollection.nextImage());
-          } else if (event.which === 37 && imageCollection.images.length > 1) { // Left button press
+          } else if (event.which === 37 && imageCollection.images.length > 1) {
+            // Left button press
             event.stopPropagation();
             switchImage(imageCollection.previousImage());
-          } else if (event.which === 27) { // Esc button press
+          } else if (event.which === 27) {
+            // Esc button press
             closeLightbox();
           }
         }
@@ -388,7 +394,7 @@
       /**
        * Next image button click.
        */
-      $next.click(function (event) {
+      $next.click(function(event) {
         event.stopPropagation();
         settings.slideshow = false;
         switchImage(imageCollection.nextImage());
@@ -397,32 +403,32 @@
       /**
        * Previous image button click.
        */
-      $prev.click(function (event) {
+      $prev.click(function(event) {
         event.stopPropagation();
         settings.slideshow = false;
         switchImage(imageCollection.previousImage());
       });
 
       /**
-      * Play click.
-      */
-      $play.click(function (event) {
+       * Play click.
+       */
+      $play.click(function(event) {
         event.stopPropagation();
         switchPlayback(true);
       });
 
       /**
-      * Pause click.
-      */
-      $pause.click(function (event) {
+       * Pause click.
+       */
+      $pause.click(function(event) {
         event.stopPropagation();
         switchPlayback(false);
       });
 
       /**
-      * Download button click.
-      */
-      $download.click(function (event) {
+       * Download button click.
+       */
+      $download.click(function(event) {
         event.stopPropagation();
       });
 
@@ -439,7 +445,7 @@
       /**
        * Click on empty space of lightbox.
        */
-      $lsb.click(function (event) {
+      $lsb.click(function(event) {
         switchPlayback(false);
         closeLightbox();
       });
@@ -447,10 +453,9 @@
       /**
        * Allow user to click or select image title.
        */
-      $lsbTitle.click(function (event) {
+      $lsbTitle.click(function(event) {
         event.stopPropagation();
       });
-
     })();
 
     function switchOrCloseImage(event) {
@@ -468,9 +473,9 @@
     }
 
     /**
-    * Switch interface between play and pause.
-    * @param play {Boolean} true to turn on slideshow.
-    */
+     * Switch interface between play and pause.
+     * @param play {Boolean} true to turn on slideshow.
+     */
     function switchPlayback(play) {
       if (play) {
         settings.slideshow = true;
@@ -503,8 +508,7 @@
     }
 
     function playbackGo() {
-      if (settings.slideshow)
-        switchOrCloseImage();
+      if (settings.slideshow) switchOrCloseImage();
 
       // If lightbox is not closed and playback enabled, set timeout for new slide.
       if (settings.slideshow && !lsbClosed) {
@@ -523,11 +527,10 @@
       $noImageFound.hide();
 
       // Use timeout to let the image transition effect play.
-      window.setTimeout(function () {
+      window.setTimeout(function() {
         loadImage(imageObj);
       }, transitionTimeout);
     }
-
 
     /**
      * Loads full size image.
@@ -536,29 +539,39 @@
       $spinner.show();
       // Show current image number.
       if (settings.showImageCount && imageCollection.images.length > 1) {
-        $lsbCount.text((imageCollection.current + 1) + '/' + imageCollection.images.length);
+        $lsbCount.text(
+          imageCollection.current + 1 + '/' + imageCollection.images.length
+        );
       } else {
         $lsbCount.text('');
       }
 
       //Load image.
-      var $img = $('<img />').attr('src', imageObj.href).on('load', function () {
-        // Set image.
-        $lsbImage.attr('src', $img.attr('src'));
-        if (settings.showImageTitle) {
-          // Set image title.
+      var $img = $('<img />')
+        .attr('src', imageObj.href)
+        .on('load', function() {
+          // Set image.
+          $lsbImage.attr('src', $img.attr('src'));
+          if (settings.showImageTitle) {
+            // Set image title.
+            $lsbTitle.text(imageObj.alt);
+          }
+          // Set download button reference
+          if (imageObj.downloadUrl) {
+            $download.attr('href', imageObj.downloadUrl);
+          } else {
+            $download.attr('href', imageObj.href);
+          }
+
+          displayImage();
+        })
+        .on('error', function(error) {
+          $spinner.hide();
+          // Show at least a title, so user can refer it to define a problem.
           $lsbTitle.text(imageObj.alt);
-        }
-        // Set download button reference
-        $download.attr('href', imageObj.href);
-        displayImage();
-      }).on('error', function (error) {
-        $spinner.hide();
-        // Show at least a title, so user can refer it to define a problem.
-        $lsbTitle.text(imageObj.alt);
-        $noImageFound.show();
-        console.log('[LSB Error]:', error);
-      });
+          $noImageFound.show();
+          console.log('[LSB Error]:', error);
+        });
     }
 
     /**
@@ -575,7 +588,7 @@
   /**
    * Plugin to detect swipes
    */
-  $.fn.swipeDetector = function (options) {
+  $.fn.swipeDetector = function(options) {
     // States: 0 - no swipe, 1 - swipe started, 2 - swipe released
     var swipeState = 0;
     // Coordinates when swipe started
@@ -604,11 +617,9 @@
     })();
 
     function swipeStart(event) {
-      if (options.useOnlyTouch && !event.originalEvent.touches)
-        return;
+      if (options.useOnlyTouch && !event.originalEvent.touches) return;
 
-      if (event.originalEvent.touches)
-        event = event.originalEvent.touches[0];
+      if (event.originalEvent.touches) event = event.originalEvent.touches[0];
 
       if (swipeState === 0) {
         swipeState = 1;
@@ -621,14 +632,18 @@
       if (swipeState === 2) {
         swipeState = 0;
 
-        if (Math.abs(pixelOffsetX) > Math.abs(pixelOffsetY) &&
-          Math.abs(pixelOffsetX) > options.swipeThreshold) { // Horizontal Swipe
+        if (
+          Math.abs(pixelOffsetX) > Math.abs(pixelOffsetY) &&
+          Math.abs(pixelOffsetX) > options.swipeThreshold
+        ) {
+          // Horizontal Swipe
           if (pixelOffsetX < 0) {
             swipeTarget.trigger($.Event('swipeLeft.lsb'));
           } else {
             swipeTarget.trigger($.Event('swipeRight.lsb'));
           }
-        } else if (Math.abs(pixelOffsetY) > options.swipeThreshold) { // Vertical swipe
+        } else if (Math.abs(pixelOffsetY) > options.swipeThreshold) {
+          // Vertical swipe
           if (pixelOffsetY < 0) {
             swipeTarget.trigger($.Event('swipeUp.lsb'));
           } else {
@@ -640,9 +655,7 @@
 
     function swiping(event) {
       // If swipe don't occuring, do nothing.
-      if (swipeState !== 1)
-        return;
-
+      if (swipeState !== 1) return;
 
       if (event.originalEvent.touches) {
         event = event.originalEvent.touches[0];
@@ -651,8 +664,10 @@
       var swipeOffsetX = event.clientX - startX;
       var swipeOffsetY = event.clientY - startY;
 
-      if ((Math.abs(swipeOffsetX) > options.swipeThreshold) ||
-        (Math.abs(swipeOffsetY) > options.swipeThreshold)) {
+      if (
+        Math.abs(swipeOffsetX) > options.swipeThreshold ||
+        Math.abs(swipeOffsetY) > options.swipeThreshold
+      ) {
         swipeState = 2;
         pixelOffsetX = swipeOffsetX;
         pixelOffsetY = swipeOffsetY;
@@ -661,4 +676,4 @@
 
     return swipeTarget; // Return element available for chaining.
   };
-}(jQuery));
+})(jQuery);
