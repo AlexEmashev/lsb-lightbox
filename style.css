@@ -1,15 +1,15 @@
-/* line 21, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 * {
-  box-sizing: border-box;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; }
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Trebuchet MS', Helvetica, sans-serif;
+}
 
-/* line 28, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 body {
   margin: 0 auto;
   background-color: #f2f2f2;
-  color: #000000; }
+  color: #000000;
+}
 
-/* line 39, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 h1,
 h2,
 h3,
@@ -17,207 +17,217 @@ h4,
 h5,
 h6 {
   text-align: center;
-  color: #64B3A5;
-  margin: 0; }
+  color: #64b3a5;
+  margin: 0;
+}
 
-/* line 45, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 h1 {
   margin: 0;
-  font-size: 50px; }
-  @media screen and (max-width: 425px) {
-    /* line 45, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-    h1 {
-      font-size: 26px; } }
+  font-size: 50px;
+}
 
-/* line 54, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+@media screen and (max-width: 425px) {
+  h1 {
+    font-size: 18px;
+  }
+}
+
 h2 {
   font-size: 2em;
   font-weight: 300;
-  text-shadow: 2px 1px 0 #cbe5e1; }
+}
 
-/* line 60, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 h3 {
   font-size: 1.4em;
   text-align: left;
-  font-weight: 300; }
+  font-weight: 300;
+}
 
-/* line 66, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-.header {
-  background-color: #64B3A5;
-  background-image: url("img/img-noise-200x200.png");
-  background-repeat: repeat;
+header {
+  background: #64b3a5;
   display: block;
   margin: 0;
-  color: #f2f2f2;
+  color: #f7f7f7;
   overflow: hidden;
-  border-top: 1px solid #86c4b9;
-  border-bottom: 1px solid #50a395; }
-  /* line 77, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .header h1 {
-    padding-top: 36px;
-    color: #f2f2f2;
-    text-shadow: 2px 2px 0 #64B3A5, 4px 4px 0 #43887c; }
-  /* line 84, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .header h2 {
-    margin: 0;
-    font-size: 14px;
-    color: #f2f2f2;
-    padding-bottom: 46px;
-    text-shadow: 1px 1px 0 #4b998b; }
+}
 
-/* line 93, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+header h1 {
+  padding-top: 36px;
+  color: #f7f7f7;
+}
+
+header h2 {
+  margin: 0;
+  font-size: 14px;
+  color: #f7f7f7;
+  padding-bottom: 46px;
+}
+
 a {
-  color: #29554d; }
-  /* line 95, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  a:link {
-    color: #4b998b; }
-  /* line 98, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  a:hover {
-    color: #86c4b9; }
-  /* line 101, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  a:active {
-    color: #a8d5cd; }
+  color: #29554d;
+}
 
-/* line 109, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+a:link {
+  color: #4b998b;
+}
+
+a:hover {
+  color: #86c4b9;
+}
+
+a:active {
+  color: #a8d5cd;
+}
+
 section {
   margin: 0;
   padding-top: 2em;
   padding-bottom: 1em;
-  background: #f2f2f2; }
+  background: #f7f7f7;
+}
 
-/* line 116, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 strong {
-  color: #64B3A5; }
+  color: #64b3a5;
+}
 
-/* line 120, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 .content {
   max-width: 680px;
   margin: 0 auto;
   overflow: hidden;
   padding-bottom: 13px;
   padding-top: 13px;
-  padding-left: 7px;
-  padding-right: 7px; }
+}
 
-/* line 130, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 .default-block {
-  width: 100%; }
+  width: 100%;
+}
 
-/* line 136, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 .accent-block {
   width: 100%;
-  background: #7AA6B7;
+  background: #7aa6b7;
   color: #ffffff;
-  border-top: 1px solid #9bbcc9;
-  border-bottom: 1px solid #6397aa; }
+}
 
-/* line 144, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 .show-reel {
   text-align: center;
   margin-bottom: 2px;
-  word-spacing: -1px; }
-  /* line 148, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .show-reel .lsb-preview {
-    display: inline-block;
-    float: none;
-    width: 150px; }
+  word-spacing: -1px;
+}
 
-/* line 156, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+.show-reel .lsb-preview {
+  display: inline-block;
+  float: none;
+  width: 150px;
+}
+
 .single-image .lsb-preview.single {
   display: block;
   width: 240px;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
-/* line 167, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
 .gallery .lsb-preview {
   float: left;
   width: 25%;
-  padding: 2px; }
-  @media screen and (max-width: 425px) {
-    /* line 167, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-    .gallery .lsb-preview {
-      width: 50%; } }
+  padding: 2px;
+}
 
-/* line 178, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+@media screen and (max-width: 425px) {
+  .gallery .lsb-preview {
+    width: 50%;
+  }
+}
+
 .code {
   position: relative;
-  background: #F7F4E6;
+  background: #f7f4e6;
   margin-bottom: 1em;
   border: 1px solid #ecebe2;
   border-radius: 4px;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 11px;
-  color: #24793B;
+  color: #24793b;
   padding: 10px;
   line-height: 16px;
-  overflow-x: auto; }
-  /* line 191, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .code::after {
-    content: 'Code';
-    position: absolute;
-    top: 2px;
-    right: 4px;
-    color: #B3B1A4; }
+  overflow-x: auto;
+}
 
-/* line 200, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+.code::after {
+  content: 'Code';
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  color: #b3b1a4;
+}
+
 .lsb-preview {
   display: block;
-  overflow: hidden; }
-  /* line 204, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .lsb-preview img {
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out; }
-  /* line 209, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .lsb-preview:hover img {
-    opacity: .9;
-    box-shadow: 0 1px 10px #000;
-    -webkit-transform: scale(1.3);
-        -ms-transform: scale(1.3);
-            transform: scale(1.3); }
-  /* line 216, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .lsb-preview:active img {
-    opacity: .7;
-    -webkit-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-            transform: scale(1.2); }
-  /* line 222, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .lsb-preview img {
-    width: 100%;
-    height: auto;
-    vertical-align: bottom; }
+  overflow: hidden;
+}
 
-/* line 229, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+.lsb-preview img {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.lsb-preview:hover img {
+  opacity: 0.9;
+  -webkit-box-shadow: 0 1px 10px #000;
+          box-shadow: 0 1px 10px #000;
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.lsb-preview:active img {
+  opacity: 0.7;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.lsb-preview img {
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
 .settings {
   display: table;
   border-collapse: collapse;
   font-size: 12px;
-  margin-bottom: 2em; }
-  /* line 235, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .settings .row {
-    display: table-row;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-    /* line 239, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-    .settings .row:first-child {
-      font-weight: bold; }
-  /* line 243, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .settings .cell {
-    display: table-cell;
-    padding-top: 3px;
-    padding-bottom: 10px;
-    vertical-align: top; }
-  /* line 249, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .settings .name {
-    padding-right: 5px;
-    padding-bottom: 1px;
-    padding-left: 1px; }
-  /* line 254, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
-  .settings .default {
-    padding-right: 3px; }
+  margin-bottom: 2em;
+}
 
-/* line 261, D:/yadisk/YandexDisk/web-dev/lsb-lightbox/style.scss */
+.settings .row {
+  display: table-row;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.settings .row:first-child {
+  font-weight: bold;
+}
+
+.settings .cell {
+  display: table-cell;
+  padding-top: 3px;
+  padding-bottom: 10px;
+  vertical-align: top;
+}
+
+.settings .name {
+  padding-right: 5px;
+  padding-bottom: 1px;
+  padding-left: 1px;
+}
+
+.settings .default {
+  padding-right: 3px;
+}
+
 footer {
   text-align: center;
-  font-size: .7em;
+  font-size: 0.7em;
   padding-top: 3px;
   padding-bottom: 7px;
-  background: #f2f2f2; }
+  background: #f7f7f7;
+}
+/*# sourceMappingURL=style.css.map */
