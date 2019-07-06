@@ -43,8 +43,8 @@
   text-align: center;
   margin: auto;
   padding: 20px;
-  -webkit-transition: all .5s;
-  transition: all .5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
   height: 100%;
 }
 
@@ -67,6 +67,10 @@
           align-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+}
+
+.lightspeed-box .lsb-noimage {
+  opacity: 0;
 }
 
 .lightspeed-box img.lsb-image {
@@ -132,7 +136,7 @@
   margin-bottom: 20px;
   background: rgba(0, 0, 0, 0.64);
   border-radius: 3px;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .lightspeed-box .lsb-control-panel:hover {
@@ -197,8 +201,8 @@
   text-shadow: 0 1px 4px #000000;
   color: #ffffff;
   background: rgba(0, 0, 0, 0.32);
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
+  -webkit-transition: opacity 0.5s ease-out;
+  transition: opacity 0.5s ease-out;
   opacity: 0;
 }
 
@@ -249,7 +253,7 @@
 .lightspeed-box .lsb-next svg {
   width: 21px;
   height: 100%;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
 }
 
@@ -290,7 +294,7 @@
 .lightspeed-box .lsb-close svg {
   width: 21px;
   height: 28px;
-  opacity: .5;
+  opacity: 0.5;
   position: absolute;
   top: 25px;
   right: 35px;

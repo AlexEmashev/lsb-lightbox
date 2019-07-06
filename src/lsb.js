@@ -375,16 +375,26 @@
        * Keyboard support.
        */
       $(document).on('keyup.lightspeed-box', function(event) {
+        var leftKeyCode = 37;
+        var rightKeyCode = 39;
+        var escKeyCode = 27;
+
         if ($lsb.hasClass('lsb-active')) {
           // Right button press. Image switching make sence only if there are more than one image in collection.
-          if (event.which === 39 && imageCollection.images.length > 1) {
+          if (
+            event.which === rightKeyCode &&
+            imageCollection.images.length > 1
+          ) {
             event.stopPropagation();
             switchImage(imageCollection.nextImage());
-          } else if (event.which === 37 && imageCollection.images.length > 1) {
+          } else if (
+            event.which === leftKeyCode &&
+            imageCollection.images.length > 1
+          ) {
             // Left button press
             event.stopPropagation();
             switchImage(imageCollection.previousImage());
-          } else if (event.which === 27) {
+          } else if (event.which === escKeyCode) {
             // Esc button press
             closeLightbox();
           }

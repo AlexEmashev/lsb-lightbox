@@ -69,6 +69,10 @@
   justify-content: space-around;
 }
 
+.lightspeed-box .lsb-noimage {
+  opacity: 0;
+}
+
 .lightspeed-box img.lsb-image {
   position: relative;
   max-height: 0%;
