@@ -27,7 +27,7 @@ Ubiquitous [jQuery](http://jquery.com/) library
 ### Manual Installation
 
 For manual installation just include these two files into **&lt;head&gt;** of your page:
-[lsb.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.min.js)
+[lsb.min.js](http://alexemashev.github.io/lightspeedbox/dist/lsb.min.js)
 [lsb.css](http://alexemashev.github.io/lightspeedbox/dist/lsb.css)
 
 You'll also need to add [jQuery](http://jquery.com/) library if it's not already added.
